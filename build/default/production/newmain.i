@@ -20278,15 +20278,20 @@ void main(void) {
     {
         can_rxbuff.fullid = can_rxbuff.idh<<3;
         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-
-        if(canMessageFlag)
+# 167 "newmain.c"
+         if( can_rxbuff.fullid == 0x12f )
         {
-            if( ( ledHighTimer + ledLowTimer ) == 0 )
-            {
-                LATCbits.LATC0 = 0;
-                ledHighTimer = 500;
-            }
-            canMessageFlag = 0;
+            if( ( can_rxbuff.d3 &0xf0 ) == 0xd0 )
+                        {
+                            LATCbits.LATC1 = 0;
+                        }
+        }
+        if( can_rxbuff.fullid == 0x12f )
+        {
+            if( ( can_rxbuff.d6 & 0x0f ) == 0x03 )
+                        {
+                            LATCbits.LATC0 = 0;
+                        }
         }
 # 225 "newmain.c"
     }

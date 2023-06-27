@@ -1942,35 +1942,52 @@ Version 4.0 HI-TECH Software Intermediate Code
 "152
 [; ;newmain.c: 152:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
 [e = . _can_rxbuff 2 -> | -> . _can_rxbuff 2 `ui -> >> -> . _can_rxbuff 1 `i -> 5 `i `ui `us ]
-"154
-[; ;newmain.c: 154:         if(canMessageFlag)
-[e $ ! != -> _canMessageFlag `i -> 0 `i 1538  ]
-"155
-[; ;newmain.c: 155:         {
+"167
+[; ;newmain.c: 167:          if( can_rxbuff.fullid == 0x12f )
+[e $ ! == -> . _can_rxbuff 2 `ui -> -> 303 `i `ui 1538  ]
+"168
+[; ;newmain.c: 168:         {
 {
-"156
-[; ;newmain.c: 156:             if( ( ledHighTimer + ledLowTimer ) == 0 )
-[e $ ! == + -> _ledHighTimer `ui -> _ledLowTimer `ui -> -> 0 `i `ui 1539  ]
-"157
-[; ;newmain.c: 157:             {
+"169
+[; ;newmain.c: 169:             if( ( can_rxbuff.d3 &0xf0 ) == 0xd0 )
+[e $ ! == & -> . _can_rxbuff 7 `i -> 240 `i -> 208 `i 1539  ]
+"170
+[; ;newmain.c: 170:                         {
 {
-"158
-[; ;newmain.c: 158:                 LATCbits.LATC0 = 0;
-[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-"159
-[; ;newmain.c: 159:                 ledHighTimer = 500;
-[e = _ledHighTimer -> -> 500 `i `us ]
-"160
-[; ;newmain.c: 160:             }
+"171
+[; ;newmain.c: 171:                             LATCbits.LATC1 = 0;
+[e = . . _LATCbits 0 1 -> -> 0 `i `uc ]
+"172
+[; ;newmain.c: 172:                         }
 }
 [e :U 1539 ]
-"161
-[; ;newmain.c: 161:             canMessageFlag = 0;
-[e = _canMessageFlag -> -> 0 `i `uc ]
-"162
-[; ;newmain.c: 162:         }
+"173
+[; ;newmain.c: 173:         }
 }
 [e :U 1538 ]
+"174
+[; ;newmain.c: 174:         if( can_rxbuff.fullid == 0x12f )
+[e $ ! == -> . _can_rxbuff 2 `ui -> -> 303 `i `ui 1540  ]
+"175
+[; ;newmain.c: 175:         {
+{
+"176
+[; ;newmain.c: 176:             if( ( can_rxbuff.d6 & 0x0f ) == 0x03 )
+[e $ ! == & -> . _can_rxbuff 10 `i -> 15 `i -> 3 `i 1541  ]
+"177
+[; ;newmain.c: 177:                         {
+{
+"178
+[; ;newmain.c: 178:                             LATCbits.LATC0 = 0;
+[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
+"179
+[; ;newmain.c: 179:                         }
+}
+[e :U 1541 ]
+"180
+[; ;newmain.c: 180:         }
+}
+[e :U 1540 ]
 "225
 [; ;newmain.c: 225:     }
 }
@@ -1995,7 +2012,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "231
 [; ;newmain.c: 231:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
-[e $ ! && != -> . . _PIR5bits 0 0 `i -> 0 `i != -> . . _PIE5bits 0 0 `i -> 0 `i 1541  ]
+[e $ ! && != -> . . _PIR5bits 0 0 `i -> 0 `i != -> . . _PIE5bits 0 0 `i -> 0 `i 1543  ]
 "232
 [; ;newmain.c: 232:   {
 {
@@ -2044,10 +2061,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "249
 [; ;newmain.c: 249:   }
 }
-[e :U 1541 ]
+[e :U 1543 ]
 "250
 [; ;newmain.c: 250:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
-[e $ ! && != -> . . _INTCONbits 1 5 `i -> 0 `i != -> . . _INTCONbits 0 2 `i -> 0 `i 1542  ]
+[e $ ! && != -> . . _INTCONbits 1 5 `i -> 0 `i != -> . . _INTCONbits 0 2 `i -> 0 `i 1544  ]
 "251
 [; ;newmain.c: 251:     {
 {
@@ -2056,7 +2073,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ++ _ledtimer -> -> 1 `i `us ]
 "253
 [; ;newmain.c: 253:         if(ledtimer > 500)
-[e $ ! > -> _ledtimer `ui -> -> 500 `i `ui 1543  ]
+[e $ ! > -> _ledtimer `ui -> -> 500 `i `ui 1545  ]
 "254
 [; ;newmain.c: 254:         {
 {
@@ -2069,10 +2086,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "259
 [; ;newmain.c: 259:         }
 }
-[e :U 1543 ]
+[e :U 1545 ]
 "260
 [; ;newmain.c: 260:         if(ledHighTimer > 0)
-[e $ ! > -> _ledHighTimer `ui -> -> 0 `i `ui 1544  ]
+[e $ ! > -> _ledHighTimer `ui -> -> 0 `i `ui 1546  ]
 "261
 [; ;newmain.c: 261:         {
 {
@@ -2081,7 +2098,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e -- _ledHighTimer -> -> 1 `i `us ]
 "263
 [; ;newmain.c: 263:             if(ledHighTimer == 0)
-[e $ ! == -> _ledHighTimer `ui -> -> 0 `i `ui 1545  ]
+[e $ ! == -> _ledHighTimer `ui -> -> 0 `i `ui 1547  ]
 "264
 [; ;newmain.c: 264:             {
 {
@@ -2094,14 +2111,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 "267
 [; ;newmain.c: 267:             }
 }
-[e :U 1545 ]
+[e :U 1547 ]
 "268
 [; ;newmain.c: 268:         }
 }
-[e :U 1544 ]
+[e :U 1546 ]
 "269
 [; ;newmain.c: 269:         if(ledLowTimer > 0)
-[e $ ! > -> _ledLowTimer `ui -> -> 0 `i `ui 1546  ]
+[e $ ! > -> _ledLowTimer `ui -> -> 0 `i `ui 1548  ]
 "270
 [; ;newmain.c: 270:         {
 {
@@ -2111,7 +2128,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "273
 [; ;newmain.c: 273:         }
 }
-[e :U 1546 ]
+[e :U 1548 ]
 "274
 [; ;newmain.c: 274:         TMR0H = 0xf8;
 [e = _TMR0H -> -> 248 `i `uc ]
@@ -2124,8 +2141,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "278
 [; ;newmain.c: 278:     }
 }
-[e :U 1542 ]
+[e :U 1544 ]
 "279
 [; ;newmain.c: 279: }
-[e :UE 1540 ]
+[e :UE 1542 ]
 }
