@@ -15,7 +15,7 @@
 
 #pragma config RETEN = OFF
 #pragma config INTOSCSEL = HIGH
-#pragma config SOSCSEL = HIGH
+#pragma config SOSCSEL = DIG
 #pragma config XINST = OFF
 
 
@@ -20215,6 +20215,8 @@ struct CAN_RXBUFF
    };
 struct CAN_RXBUFF can_rxbuff;
 uint16_t ledtimer = 0;
+uint8_t canMessageFlag;
+uint16_t ledHighTimer,ledLowTimer;
 void can_init(void)
 {
 
@@ -20276,21 +20278,17 @@ void main(void) {
     {
         can_rxbuff.fullid = can_rxbuff.idh<<3;
         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-         if( can_rxbuff.fullid == 0x12f )
+
+        if(canMessageFlag)
         {
-            if( ( can_rxbuff.d3 &0xd0) )
-                        {
-                            LATCbits.LATC1 = 0;
-                        }
+            if( ( ledHighTimer + ledLowTimer ) == 0 )
+            {
+                LATCbits.LATC0 = 0;
+                ledHighTimer = 500;
+            }
+            canMessageFlag = 0;
         }
-        if( can_rxbuff.fullid == 0x12f )
-        {
-            if( ( can_rxbuff.d6 & 0x03 ) )
-                        {
-                            LATCbits.LATC0 = 0;
-                        }
-        }
-# 204 "newmain.c"
+# 225 "newmain.c"
     }
     return;
 }
@@ -20312,6 +20310,7 @@ void __attribute__((picinterrupt(("")))) myISR(void)
   can_rxbuff.dl = RXB0DLC;
         can_rxbuff.idh = RXB0SIDH;
         can_rxbuff.idl = (RXB0SIDL&0xe0);
+        canMessageFlag = 1;
 
         RXB0CONbits.RXFUL = 0;
   }
@@ -20321,7 +20320,23 @@ void __attribute__((picinterrupt(("")))) myISR(void)
         if(ledtimer > 500)
         {
             LATBbits.LATB7 ^= 1;
+
+
             ledtimer = 0;
+        }
+        if(ledHighTimer > 0)
+        {
+            ledHighTimer--;
+            if(ledHighTimer == 0)
+            {
+                ledLowTimer = 500;
+                LATCbits.LATC0 = 1;
+            }
+        }
+        if(ledLowTimer > 0)
+        {
+            ledLowTimer--;
+
         }
         TMR0H = 0xf8;
         TMR0L = 0x2F;

@@ -309,7 +309,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "8
 [p x INTOSCSEL  =  HIGH  ]
 "9
-[p x SOSCSEL  =  HIGH    ]
+[p x SOSCSEL  =  DIG    ]
 "10
 [p x XINST  =  OFF        ]
 "13
@@ -1762,335 +1762,370 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 0 `i `us
 ]
 "90
-[; ;newmain.c: 90: void can_init(void)
-[v _can_init `(v ~T0 @X0 1 ef ]
+[; ;newmain.c: 90: uint8_t canMessageFlag;
+[v _canMessageFlag `uc ~T0 @X0 1 e ]
 "91
-[; ;newmain.c: 91: {
+[; ;newmain.c: 91: uint16_t ledHighTimer,ledLowTimer;
+[v _ledHighTimer `us ~T0 @X0 1 e ]
+[v _ledLowTimer `us ~T0 @X0 1 e ]
+"92
+[; ;newmain.c: 92: void can_init(void)
+[v _can_init `(v ~T0 @X0 1 ef ]
+"93
+[; ;newmain.c: 93: {
 {
 [e :U _can_init ]
 [f ]
-"93
-[; ;newmain.c: 93:     TRISBbits.TRISB2 = 0;
+"95
+[; ;newmain.c: 95:     TRISBbits.TRISB2 = 0;
 [e = . . _TRISBbits 0 2 -> -> 0 `i `uc ]
-"94
-[; ;newmain.c: 94:     TRISBbits.TRISB3 = 1;
-[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
 "96
-[; ;newmain.c: 96:     CANCONbits.REQOP = 0b100;
+[; ;newmain.c: 96:     TRISBbits.TRISB3 = 1;
+[e = . . _TRISBbits 0 3 -> -> 1 `i `uc ]
+"98
+[; ;newmain.c: 98:     CANCONbits.REQOP = 0b100;
 [e = . . _CANCONbits 0 5 -> -> 4 `i `uc ]
-"97
-[; ;newmain.c: 97:     while (0x80 != (CANSTAT & 0xE0));
+"99
+[; ;newmain.c: 99:     while (0x80 != (CANSTAT & 0xE0));
 [e $U 1528  ]
 [e :U 1529 ]
 [e :U 1528 ]
 [e $ != -> 128 `i & -> _CANSTAT `i -> 224 `i 1529  ]
 [e :U 1530 ]
-"98
-[; ;newmain.c: 98:     ECANCON = 0x00;
-[e = _ECANCON -> -> 0 `i `uc ]
-"99
-[; ;newmain.c: 99:     RXM0EIDH = 0x00;
-[e = _RXM0EIDH -> -> 0 `i `uc ]
 "100
-[; ;newmain.c: 100:     RXM0EIDL = 0x00;
-[e = _RXM0EIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 100:     ECANCON = 0x00;
+[e = _ECANCON -> -> 0 `i `uc ]
 "101
-[; ;newmain.c: 101:     RXM0SIDH = 0x00;
-[e = _RXM0SIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 101:     RXM0EIDH = 0x00;
+[e = _RXM0EIDH -> -> 0 `i `uc ]
 "102
-[; ;newmain.c: 102:     RXM0SIDL = 0x00;
-[e = _RXM0SIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 102:     RXM0EIDL = 0x00;
+[e = _RXM0EIDL -> -> 0 `i `uc ]
 "103
-[; ;newmain.c: 103:     RXM1EIDH = 0x00;
-[e = _RXM1EIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 103:     RXM0SIDH = 0x00;
+[e = _RXM0SIDH -> -> 0 `i `uc ]
 "104
-[; ;newmain.c: 104:     RXM1EIDL = 0x00;
-[e = _RXM1EIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 104:     RXM0SIDL = 0x00;
+[e = _RXM0SIDL -> -> 0 `i `uc ]
 "105
-[; ;newmain.c: 105:     RXM1SIDH = 0x00;
-[e = _RXM1SIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 105:     RXM1EIDH = 0x00;
+[e = _RXM1EIDH -> -> 0 `i `uc ]
 "106
-[; ;newmain.c: 106:     RXM1SIDL = 0x00;
-[e = _RXM1SIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 106:     RXM1EIDL = 0x00;
+[e = _RXM1EIDL -> -> 0 `i `uc ]
 "107
-[; ;newmain.c: 107:     RXF0EIDH = 0x00;
-[e = _RXF0EIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 107:     RXM1SIDH = 0x00;
+[e = _RXM1SIDH -> -> 0 `i `uc ]
 "108
-[; ;newmain.c: 108:     RXF0EIDL = 0x00;
-[e = _RXF0EIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 108:     RXM1SIDL = 0x00;
+[e = _RXM1SIDL -> -> 0 `i `uc ]
 "109
-[; ;newmain.c: 109:     RXF0SIDH = 0x00;
-[e = _RXF0SIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 109:     RXF0EIDH = 0x00;
+[e = _RXF0EIDH -> -> 0 `i `uc ]
 "110
-[; ;newmain.c: 110:     RXF0SIDL = 0x00;
-[e = _RXF0SIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 110:     RXF0EIDL = 0x00;
+[e = _RXF0EIDL -> -> 0 `i `uc ]
 "111
-[; ;newmain.c: 111:     RXF1EIDH = 0x00;
-[e = _RXF1EIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 111:     RXF0SIDH = 0x00;
+[e = _RXF0SIDH -> -> 0 `i `uc ]
 "112
-[; ;newmain.c: 112:     RXF1EIDL = 0x00;
-[e = _RXF1EIDL -> -> 0 `i `uc ]
+[; ;newmain.c: 112:     RXF0SIDL = 0x00;
+[e = _RXF0SIDL -> -> 0 `i `uc ]
 "113
-[; ;newmain.c: 113:     RXF1SIDH = 0x00;
-[e = _RXF1SIDH -> -> 0 `i `uc ]
+[; ;newmain.c: 113:     RXF1EIDH = 0x00;
+[e = _RXF1EIDH -> -> 0 `i `uc ]
 "114
-[; ;newmain.c: 114:     RXF1SIDL = 0x00;
+[; ;newmain.c: 114:     RXF1EIDL = 0x00;
+[e = _RXF1EIDL -> -> 0 `i `uc ]
+"115
+[; ;newmain.c: 115:     RXF1SIDH = 0x00;
+[e = _RXF1SIDH -> -> 0 `i `uc ]
+"116
+[; ;newmain.c: 116:     RXF1SIDL = 0x00;
 [e = _RXF1SIDL -> -> 0 `i `uc ]
-"117
-[; ;newmain.c: 117:     BRGCON1 = 0x01;
-[e = _BRGCON1 -> -> 1 `i `uc ]
-"118
-[; ;newmain.c: 118:     BRGCON2 = 0x98;
-[e = _BRGCON2 -> -> 152 `i `uc ]
 "119
-[; ;newmain.c: 119:     BRGCON3 = 0x01;
-[e = _BRGCON3 -> -> 1 `i `uc ]
+[; ;newmain.c: 119:     BRGCON1 = 0x01;
+[e = _BRGCON1 -> -> 1 `i `uc ]
+"120
+[; ;newmain.c: 120:     BRGCON2 = 0x98;
+[e = _BRGCON2 -> -> 152 `i `uc ]
 "121
-[; ;newmain.c: 121:     ECANCONbits.MDSEL = 0b00;
-[e = . . _ECANCONbits 0 2 -> -> 0 `i `uc ]
-"122
-[; ;newmain.c: 122:     CANCONbits.REQOP = 0b011;
-[e = . . _CANCONbits 0 5 -> -> 3 `i `uc ]
+[; ;newmain.c: 121:     BRGCON3 = 0x01;
+[e = _BRGCON3 -> -> 1 `i `uc ]
 "123
-[; ;newmain.c: 123:     while (CANSTATbits.OPMODE != 0b011);
+[; ;newmain.c: 123:     ECANCONbits.MDSEL = 0b00;
+[e = . . _ECANCONbits 0 2 -> -> 0 `i `uc ]
+"124
+[; ;newmain.c: 124:     CANCONbits.REQOP = 0b011;
+[e = . . _CANCONbits 0 5 -> -> 3 `i `uc ]
+"125
+[; ;newmain.c: 125:     while (CANSTATbits.OPMODE != 0b011);
 [e $U 1531  ]
 [e :U 1532 ]
 [e :U 1531 ]
 [e $ != -> . . _CANSTATbits 0 5 `i -> 3 `i 1532  ]
 [e :U 1533 ]
-"124
-[; ;newmain.c: 124: }
+"126
+[; ;newmain.c: 126: }
 [e :UE 1527 ]
 }
 [v $root$_main `(v ~T0 @X0 0 e ]
-"126
-[; ;newmain.c: 126: void main(void) {
+"128
+[; ;newmain.c: 128: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"128
-[; ;newmain.c: 128:     PIE5bits.RXB0IE = 1;
-[e = . . _PIE5bits 0 0 -> -> 1 `i `uc ]
-"129
-[; ;newmain.c: 129:     INTCONbits.GIE = 1;
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
 "130
-[; ;newmain.c: 130:     INTCONbits.PEIE = 1;
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;newmain.c: 130:     PIE5bits.RXB0IE = 1;
+[e = . . _PIE5bits 0 0 -> -> 1 `i `uc ]
 "131
-[; ;newmain.c: 131:     TRISCbits.TRISC0 = 0;
-[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
+[; ;newmain.c: 131:     INTCONbits.GIE = 1;
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
 "132
-[; ;newmain.c: 132:     TRISCbits.TRISC1 = 0;
-[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 132:     INTCONbits.PEIE = 1;
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
 "133
-[; ;newmain.c: 133:     TRISCbits.TRISC2 = 1;
-[e = . . _TRISCbits 0 2 -> -> 1 `i `uc ]
+[; ;newmain.c: 133:     TRISCbits.TRISC0 = 0;
+[e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
 "134
-[; ;newmain.c: 134:     TRISBbits.TRISB6 = 0;
-[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
+[; ;newmain.c: 134:     TRISCbits.TRISC1 = 0;
+[e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
 "135
-[; ;newmain.c: 135:     TRISBbits.TRISB7 = 0;
-[e = . . _TRISBbits 0 7 -> -> 0 `i `uc ]
+[; ;newmain.c: 135:     TRISCbits.TRISC2 = 1;
+[e = . . _TRISCbits 0 2 -> -> 1 `i `uc ]
 "136
-[; ;newmain.c: 136:     LATCbits.LATC0 = 1;
-[e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 136:     TRISBbits.TRISB6 = 0;
+[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
 "137
-[; ;newmain.c: 137:     LATCbits.LATC1 = 1;
-[e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
+[; ;newmain.c: 137:     TRISBbits.TRISB7 = 0;
+[e = . . _TRISBbits 0 7 -> -> 0 `i `uc ]
 "138
-[; ;newmain.c: 138:     LATBbits.LATB6 = 1;
-[e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
+[; ;newmain.c: 138:     LATCbits.LATC0 = 1;
+[e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
 "139
-[; ;newmain.c: 139:     LATBbits.LATB7 = 1;
-[e = . . _LATBbits 0 7 -> -> 1 `i `uc ]
+[; ;newmain.c: 139:     LATCbits.LATC1 = 1;
+[e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
 "140
-[; ;newmain.c: 140:     T0CONbits.TMR0ON = 0;
-[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
+[; ;newmain.c: 140:     LATBbits.LATB6 = 1;
+[e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
 "141
-[; ;newmain.c: 141:     T0CONbits.T08BIT = 0;
-[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
+[; ;newmain.c: 141:     LATBbits.LATB7 = 1;
+[e = . . _LATBbits 0 7 -> -> 1 `i `uc ]
 "142
-[; ;newmain.c: 142:     T0CONbits.T0CS = 0;
-[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
+[; ;newmain.c: 142:     T0CONbits.TMR0ON = 0;
+[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
 "143
-[; ;newmain.c: 143:     T0CONbits.TMR0ON = 1;
-[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+[; ;newmain.c: 143:     T0CONbits.T08BIT = 0;
+[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
 "144
-[; ;newmain.c: 144:     INTCONbits.T0IE = 1;
-[e = . . _INTCONbits 1 5 -> -> 1 `i `uc ]
+[; ;newmain.c: 144:     T0CONbits.T0CS = 0;
+[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
 "145
-[; ;newmain.c: 145:     can_init();
-[e ( _can_init ..  ]
+[; ;newmain.c: 145:     T0CONbits.TMR0ON = 1;
+[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+"146
+[; ;newmain.c: 146:     INTCONbits.T0IE = 1;
+[e = . . _INTCONbits 1 5 -> -> 1 `i `uc ]
 "147
-[; ;newmain.c: 147:     while(1)
-[e :U 1536 ]
-"148
-[; ;newmain.c: 148:     {
-{
+[; ;newmain.c: 147:     can_init();
+[e ( _can_init ..  ]
 "149
-[; ;newmain.c: 149:         can_rxbuff.fullid = can_rxbuff.idh<<3;
-[e = . _can_rxbuff 2 -> << -> . _can_rxbuff 0 `i -> 3 `i `us ]
+[; ;newmain.c: 149:     while(1)
+[e :U 1536 ]
 "150
-[; ;newmain.c: 150:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-[e = . _can_rxbuff 2 -> | -> . _can_rxbuff 2 `ui -> >> -> . _can_rxbuff 1 `i -> 5 `i `ui `us ]
+[; ;newmain.c: 150:     {
+{
 "151
-[; ;newmain.c: 151:          if( can_rxbuff.fullid == 0x12f )
-[e $ ! == -> . _can_rxbuff 2 `ui -> -> 303 `i `ui 1538  ]
+[; ;newmain.c: 151:         can_rxbuff.fullid = can_rxbuff.idh<<3;
+[e = . _can_rxbuff 2 -> << -> . _can_rxbuff 0 `i -> 3 `i `us ]
 "152
-[; ;newmain.c: 152:         {
-{
-"153
-[; ;newmain.c: 153:             if( ( can_rxbuff.d3 &0xd0) )
-[e $ ! != & -> . _can_rxbuff 7 `i -> 208 `i -> 0 `i 1539  ]
+[; ;newmain.c: 152:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
+[e = . _can_rxbuff 2 -> | -> . _can_rxbuff 2 `ui -> >> -> . _can_rxbuff 1 `i -> 5 `i `ui `us ]
 "154
-[; ;newmain.c: 154:                         {
-{
+[; ;newmain.c: 154:         if(canMessageFlag)
+[e $ ! != -> _canMessageFlag `i -> 0 `i 1538  ]
 "155
-[; ;newmain.c: 155:                             LATCbits.LATC1 = 0;
-[e = . . _LATCbits 0 1 -> -> 0 `i `uc ]
+[; ;newmain.c: 155:         {
+{
 "156
-[; ;newmain.c: 156:                         }
+[; ;newmain.c: 156:             if( ( ledHighTimer + ledLowTimer ) == 0 )
+[e $ ! == + -> _ledHighTimer `ui -> _ledLowTimer `ui -> -> 0 `i `ui 1539  ]
+"157
+[; ;newmain.c: 157:             {
+{
+"158
+[; ;newmain.c: 158:                 LATCbits.LATC0 = 0;
+[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
+"159
+[; ;newmain.c: 159:                 ledHighTimer = 500;
+[e = _ledHighTimer -> -> 500 `i `us ]
+"160
+[; ;newmain.c: 160:             }
 }
 [e :U 1539 ]
-"157
-[; ;newmain.c: 157:         }
+"161
+[; ;newmain.c: 161:             canMessageFlag = 0;
+[e = _canMessageFlag -> -> 0 `i `uc ]
+"162
+[; ;newmain.c: 162:         }
 }
 [e :U 1538 ]
-"158
-[; ;newmain.c: 158:         if( can_rxbuff.fullid == 0x12f )
-[e $ ! == -> . _can_rxbuff 2 `ui -> -> 303 `i `ui 1540  ]
-"159
-[; ;newmain.c: 159:         {
-{
-"160
-[; ;newmain.c: 160:             if( ( can_rxbuff.d6 & 0x03 ) )
-[e $ ! != & -> . _can_rxbuff 10 `i -> 3 `i -> 0 `i 1541  ]
-"161
-[; ;newmain.c: 161:                         {
-{
-"162
-[; ;newmain.c: 162:                             LATCbits.LATC0 = 0;
-[e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-"163
-[; ;newmain.c: 163:                         }
-}
-[e :U 1541 ]
-"164
-[; ;newmain.c: 164:         }
-}
-[e :U 1540 ]
-"204
-[; ;newmain.c: 204:     }
+"225
+[; ;newmain.c: 225:     }
 }
 [e :U 1535 ]
 [e $U 1536  ]
 [e :U 1537 ]
-"205
-[; ;newmain.c: 205:     return;
+"226
+[; ;newmain.c: 226:     return;
 [e $UE 1534  ]
-"206
-[; ;newmain.c: 206: }
+"227
+[; ;newmain.c: 227: }
 [e :UE 1534 ]
 }
 [v $root$_myISR `(v ~T0 @X0 0 e ]
-"207
-[; ;newmain.c: 207: void __attribute__((picinterrupt(("")))) myISR(void)
+"228
+[; ;newmain.c: 228: void __attribute__((picinterrupt(("")))) myISR(void)
 [v _myISR `(v ~T5 @X0 1 ef ]
-"208
-[; ;newmain.c: 208: {
+"229
+[; ;newmain.c: 229: {
 {
 [e :U _myISR ]
 [f ]
-"210
-[; ;newmain.c: 210:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
-[e $ ! && != -> . . _PIR5bits 0 0 `i -> 0 `i != -> . . _PIE5bits 0 0 `i -> 0 `i 1543  ]
-"211
-[; ;newmain.c: 211:   {
-{
-"212
-[; ;newmain.c: 212:   PIR5bits.RXB0IF = 0;
-[e = . . _PIR5bits 0 0 -> -> 0 `i `uc ]
-"214
-[; ;newmain.c: 214:   can_rxbuff.d0 = RXB0D0;
-[e = . _can_rxbuff 4 _RXB0D0 ]
-"215
-[; ;newmain.c: 215:   can_rxbuff.d1 = RXB0D1;
-[e = . _can_rxbuff 5 _RXB0D1 ]
-"216
-[; ;newmain.c: 216:   can_rxbuff.d2 = RXB0D2;
-[e = . _can_rxbuff 6 _RXB0D2 ]
-"217
-[; ;newmain.c: 217:   can_rxbuff.d3 = RXB0D3;
-[e = . _can_rxbuff 7 _RXB0D3 ]
-"218
-[; ;newmain.c: 218:         can_rxbuff.d4 = RXB0D4;
-[e = . _can_rxbuff 8 _RXB0D4 ]
-"219
-[; ;newmain.c: 219:         can_rxbuff.d5 = RXB0D5;
-[e = . _can_rxbuff 9 _RXB0D5 ]
-"220
-[; ;newmain.c: 220:         can_rxbuff.d6 = RXB0D6;
-[e = . _can_rxbuff 10 _RXB0D6 ]
-"221
-[; ;newmain.c: 221:         can_rxbuff.d7 = RXB0D7;
-[e = . _can_rxbuff 11 _RXB0D7 ]
-"222
-[; ;newmain.c: 222:   can_rxbuff.dl = RXB0DLC;
-[e = . _can_rxbuff 3 _RXB0DLC ]
-"223
-[; ;newmain.c: 223:         can_rxbuff.idh = RXB0SIDH;
-[e = . _can_rxbuff 0 _RXB0SIDH ]
-"224
-[; ;newmain.c: 224:         can_rxbuff.idl = (RXB0SIDL&0xe0);
-[e = . _can_rxbuff 1 -> & -> _RXB0SIDL `i -> 224 `i `uc ]
-"226
-[; ;newmain.c: 226:         RXB0CONbits.RXFUL = 0;
-[e = . . _RXB0CONbits 0 7 -> -> 0 `i `uc ]
-"227
-[; ;newmain.c: 227:   }
-}
-[e :U 1543 ]
-"228
-[; ;newmain.c: 228:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
-[e $ ! && != -> . . _INTCONbits 1 5 `i -> 0 `i != -> . . _INTCONbits 0 2 `i -> 0 `i 1544  ]
-"229
-[; ;newmain.c: 229:     {
-{
-"230
-[; ;newmain.c: 230:         ledtimer++;
-[e ++ _ledtimer -> -> 1 `i `us ]
 "231
-[; ;newmain.c: 231:         if(ledtimer > 500)
-[e $ ! > -> _ledtimer `ui -> -> 500 `i `ui 1545  ]
+[; ;newmain.c: 231:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
+[e $ ! && != -> . . _PIR5bits 0 0 `i -> 0 `i != -> . . _PIE5bits 0 0 `i -> 0 `i 1541  ]
 "232
-[; ;newmain.c: 232:         {
+[; ;newmain.c: 232:   {
 {
 "233
-[; ;newmain.c: 233:             LATBbits.LATB7 ^= 1;
-[e =^ . . _LATBbits 0 7 -> -> 1 `i `Vuc ]
-"234
-[; ;newmain.c: 234:             ledtimer = 0;
-[e = _ledtimer -> -> 0 `i `us ]
+[; ;newmain.c: 233:   PIR5bits.RXB0IF = 0;
+[e = . . _PIR5bits 0 0 -> -> 0 `i `uc ]
 "235
-[; ;newmain.c: 235:         }
+[; ;newmain.c: 235:   can_rxbuff.d0 = RXB0D0;
+[e = . _can_rxbuff 4 _RXB0D0 ]
+"236
+[; ;newmain.c: 236:   can_rxbuff.d1 = RXB0D1;
+[e = . _can_rxbuff 5 _RXB0D1 ]
+"237
+[; ;newmain.c: 237:   can_rxbuff.d2 = RXB0D2;
+[e = . _can_rxbuff 6 _RXB0D2 ]
+"238
+[; ;newmain.c: 238:   can_rxbuff.d3 = RXB0D3;
+[e = . _can_rxbuff 7 _RXB0D3 ]
+"239
+[; ;newmain.c: 239:         can_rxbuff.d4 = RXB0D4;
+[e = . _can_rxbuff 8 _RXB0D4 ]
+"240
+[; ;newmain.c: 240:         can_rxbuff.d5 = RXB0D5;
+[e = . _can_rxbuff 9 _RXB0D5 ]
+"241
+[; ;newmain.c: 241:         can_rxbuff.d6 = RXB0D6;
+[e = . _can_rxbuff 10 _RXB0D6 ]
+"242
+[; ;newmain.c: 242:         can_rxbuff.d7 = RXB0D7;
+[e = . _can_rxbuff 11 _RXB0D7 ]
+"243
+[; ;newmain.c: 243:   can_rxbuff.dl = RXB0DLC;
+[e = . _can_rxbuff 3 _RXB0DLC ]
+"244
+[; ;newmain.c: 244:         can_rxbuff.idh = RXB0SIDH;
+[e = . _can_rxbuff 0 _RXB0SIDH ]
+"245
+[; ;newmain.c: 245:         can_rxbuff.idl = (RXB0SIDL&0xe0);
+[e = . _can_rxbuff 1 -> & -> _RXB0SIDL `i -> 224 `i `uc ]
+"246
+[; ;newmain.c: 246:         canMessageFlag = 1;
+[e = _canMessageFlag -> -> 1 `i `uc ]
+"248
+[; ;newmain.c: 248:         RXB0CONbits.RXFUL = 0;
+[e = . . _RXB0CONbits 0 7 -> -> 0 `i `uc ]
+"249
+[; ;newmain.c: 249:   }
+}
+[e :U 1541 ]
+"250
+[; ;newmain.c: 250:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
+[e $ ! && != -> . . _INTCONbits 1 5 `i -> 0 `i != -> . . _INTCONbits 0 2 `i -> 0 `i 1542  ]
+"251
+[; ;newmain.c: 251:     {
+{
+"252
+[; ;newmain.c: 252:         ledtimer++;
+[e ++ _ledtimer -> -> 1 `i `us ]
+"253
+[; ;newmain.c: 253:         if(ledtimer > 500)
+[e $ ! > -> _ledtimer `ui -> -> 500 `i `ui 1543  ]
+"254
+[; ;newmain.c: 254:         {
+{
+"255
+[; ;newmain.c: 255:             LATBbits.LATB7 ^= 1;
+[e =^ . . _LATBbits 0 7 -> -> 1 `i `Vuc ]
+"258
+[; ;newmain.c: 258:             ledtimer = 0;
+[e = _ledtimer -> -> 0 `i `us ]
+"259
+[; ;newmain.c: 259:         }
+}
+[e :U 1543 ]
+"260
+[; ;newmain.c: 260:         if(ledHighTimer > 0)
+[e $ ! > -> _ledHighTimer `ui -> -> 0 `i `ui 1544  ]
+"261
+[; ;newmain.c: 261:         {
+{
+"262
+[; ;newmain.c: 262:             ledHighTimer--;
+[e -- _ledHighTimer -> -> 1 `i `us ]
+"263
+[; ;newmain.c: 263:             if(ledHighTimer == 0)
+[e $ ! == -> _ledHighTimer `ui -> -> 0 `i `ui 1545  ]
+"264
+[; ;newmain.c: 264:             {
+{
+"265
+[; ;newmain.c: 265:                 ledLowTimer = 500;
+[e = _ledLowTimer -> -> 500 `i `us ]
+"266
+[; ;newmain.c: 266:                 LATCbits.LATC0 = 1;
+[e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
+"267
+[; ;newmain.c: 267:             }
 }
 [e :U 1545 ]
-"236
-[; ;newmain.c: 236:         TMR0H = 0xf8;
-[e = _TMR0H -> -> 248 `i `uc ]
-"237
-[; ;newmain.c: 237:         TMR0L = 0x2F;
-[e = _TMR0L -> -> 47 `i `uc ]
-"238
-[; ;newmain.c: 238:         INTCONbits.TMR0IF = 0;
-[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"240
-[; ;newmain.c: 240:     }
+"268
+[; ;newmain.c: 268:         }
 }
 [e :U 1544 ]
-"241
-[; ;newmain.c: 241: }
-[e :UE 1542 ]
+"269
+[; ;newmain.c: 269:         if(ledLowTimer > 0)
+[e $ ! > -> _ledLowTimer `ui -> -> 0 `i `ui 1546  ]
+"270
+[; ;newmain.c: 270:         {
+{
+"271
+[; ;newmain.c: 271:             ledLowTimer--;
+[e -- _ledLowTimer -> -> 1 `i `us ]
+"273
+[; ;newmain.c: 273:         }
+}
+[e :U 1546 ]
+"274
+[; ;newmain.c: 274:         TMR0H = 0xf8;
+[e = _TMR0H -> -> 248 `i `uc ]
+"275
+[; ;newmain.c: 275:         TMR0L = 0x2F;
+[e = _TMR0L -> -> 47 `i `uc ]
+"276
+[; ;newmain.c: 276:         INTCONbits.TMR0IF = 0;
+[e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
+"278
+[; ;newmain.c: 278:     }
+}
+[e :U 1542 ]
+"279
+[; ;newmain.c: 279: }
+[e :UE 1540 ]
 }

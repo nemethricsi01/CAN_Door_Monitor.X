@@ -6,7 +6,7 @@
 // CONFIG1L
 #pragma config RETEN = OFF      // VREG Sleep Enable bit (Ultra low-power regulator is Disabled (Controlled by REGSLP bit))
 #pragma config INTOSCSEL = HIGH // LF-INTOSC Low-power Enable bit (LF-INTOSC in High-power mode during Sleep)
-#pragma config SOSCSEL = HIGH   // SOSC Power Selection and mode Configuration bits (High Power SOSC circuit selected)
+#pragma config SOSCSEL = DIG   // SOSC Power Selection and mode Configuration bits (High Power SOSC circuit selected)
 #pragma config XINST = OFF       // Extended Instruction Set (Enabled)
 
 // CONFIG1H
@@ -87,6 +87,8 @@ struct CAN_RXBUFF
    };
 struct CAN_RXBUFF can_rxbuff;
 uint16_t ledtimer = 0;
+uint8_t  canMessageFlag;
+uint16_t ledHighTimer,ledLowTimer;
 void can_init(void)
 {
 
@@ -148,20 +150,39 @@ void main(void) {
     {
         can_rxbuff.fullid = can_rxbuff.idh<<3;
         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-         if( can_rxbuff.fullid == 0x12f )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
+        
+        if(canMessageFlag)
         {
-            if(     ( can_rxbuff.d3 &0xd0)       )
-                        {
-                            LATCbits.LATC1 = 0;
-                        }
+            if( ( ledHighTimer + ledLowTimer ) == 0 )
+            {
+                LATCbits.LATC0 = 0;
+                ledHighTimer = 500;
+            }
+            canMessageFlag = 0;
         }
-        if( can_rxbuff.fullid == 0x12f )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
-        {
-            if(     ( can_rxbuff.d6 & 0x03 )       )
-                        {
-                            LATCbits.LATC0 = 0;
-                        }
-        }
+        
+        
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////second program option///////////////////////////////////////////////         
+//         if( can_rxbuff.fullid == 0x12f )
+//        {
+//            if(     ( can_rxbuff.d3 &0xd0)       )
+//                        {
+//                            LATCbits.LATC1 = 0;
+//                        }
+//        }
+//        if( can_rxbuff.fullid == 0x12f )
+//        {
+//            if(     ( can_rxbuff.d6 & 0x03 )       )
+//                        {
+//                            LATCbits.LATC0 = 0;
+//                        }
+//        }
+        
+        
+        
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////first program option///////////////////////////////////////////////        
 //        if( can_rxbuff.fullid == 0xfe )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
 //        {
 //            if(     ( can_rxbuff.d0 == 0xa5 ) &&
@@ -222,6 +243,7 @@ void __interrupt() myISR(void)
 		can_rxbuff.dl	= RXB0DLC;
         can_rxbuff.idh  = RXB0SIDH;
         can_rxbuff.idl  = (RXB0SIDL&0xe0);
+        canMessageFlag = 1;
         
         RXB0CONbits.RXFUL = 0;
 		}
@@ -231,7 +253,23 @@ void __interrupt() myISR(void)
         if(ledtimer > 500)
         {
             LATBbits.LATB7 ^= 1;
+            
+            
             ledtimer = 0;
+        }
+        if(ledHighTimer > 0)
+        {
+            ledHighTimer--;
+            if(ledHighTimer == 0)
+            {
+                ledLowTimer = 500;
+                LATCbits.LATC0 = 1;
+            }
+        }
+        if(ledLowTimer > 0)
+        {
+            ledLowTimer--;
+            
         }
         TMR0H = 0xf8;//preload timer so the timer period is about 1ms roughly
         TMR0L = 0x2F;
