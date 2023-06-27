@@ -31,7 +31,7 @@
 [v _can_init can_init `(v  1 e 1 0 ]
 "126
 [v _main main `(v  1 e 1 0 ]
-"192
+"207
 [v _myISR myISR `IIH(v  1 e 1 0 ]
 "193 C:/Users/nemet/.mchp_packs/Microchip/PIC18F-K_DFP/1.6.125/xc8\pic\include\proc\pic18f26k80.h
 [v _BRGCON1 BRGCON1 `VEuc  1 e 1 @3651 ]
@@ -355,15 +355,15 @@
 "126
 [v _main main `(v  1 e 1 0 ]
 {
-"191
+"206
 } 0
 "90
 [v _can_init can_init `(v  1 e 1 0 ]
 {
 "124
 } 0
-"192
+"207
 [v _myISR myISR `IIH(v  1 e 1 0 ]
 {
-"226
+"241
 } 0

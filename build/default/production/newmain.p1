@@ -1885,232 +1885,212 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;newmain.c: 132:     TRISCbits.TRISC1 = 0;
 [e = . . _TRISCbits 0 1 -> -> 0 `i `uc ]
 "133
-[; ;newmain.c: 133:     TRISBbits.TRISB6 = 0;
-[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
+[; ;newmain.c: 133:     TRISCbits.TRISC2 = 1;
+[e = . . _TRISCbits 0 2 -> -> 1 `i `uc ]
 "134
-[; ;newmain.c: 134:     TRISBbits.TRISB7 = 0;
-[e = . . _TRISBbits 0 7 -> -> 0 `i `uc ]
+[; ;newmain.c: 134:     TRISBbits.TRISB6 = 0;
+[e = . . _TRISBbits 0 6 -> -> 0 `i `uc ]
 "135
-[; ;newmain.c: 135:     LATCbits.LATC0 = 1;
-[e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
+[; ;newmain.c: 135:     TRISBbits.TRISB7 = 0;
+[e = . . _TRISBbits 0 7 -> -> 0 `i `uc ]
 "136
-[; ;newmain.c: 136:     LATCbits.LATC1 = 1;
-[e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
+[; ;newmain.c: 136:     LATCbits.LATC0 = 1;
+[e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
 "137
-[; ;newmain.c: 137:     LATBbits.LATB6 = 1;
-[e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
+[; ;newmain.c: 137:     LATCbits.LATC1 = 1;
+[e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
 "138
-[; ;newmain.c: 138:     LATBbits.LATB7 = 1;
-[e = . . _LATBbits 0 7 -> -> 1 `i `uc ]
+[; ;newmain.c: 138:     LATBbits.LATB6 = 1;
+[e = . . _LATBbits 0 6 -> -> 1 `i `uc ]
 "139
-[; ;newmain.c: 139:     T0CONbits.TMR0ON = 0;
-[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
+[; ;newmain.c: 139:     LATBbits.LATB7 = 1;
+[e = . . _LATBbits 0 7 -> -> 1 `i `uc ]
 "140
-[; ;newmain.c: 140:     T0CONbits.T08BIT = 0;
-[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
+[; ;newmain.c: 140:     T0CONbits.TMR0ON = 0;
+[e = . . _T0CONbits 0 5 -> -> 0 `i `uc ]
 "141
-[; ;newmain.c: 141:     T0CONbits.T0CS = 0;
-[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
+[; ;newmain.c: 141:     T0CONbits.T08BIT = 0;
+[e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
 "142
-[; ;newmain.c: 142:     T0CONbits.TMR0ON = 1;
-[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+[; ;newmain.c: 142:     T0CONbits.T0CS = 0;
+[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
 "143
-[; ;newmain.c: 143:     INTCONbits.T0IE = 1;
-[e = . . _INTCONbits 1 5 -> -> 1 `i `uc ]
+[; ;newmain.c: 143:     T0CONbits.TMR0ON = 1;
+[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
 "144
-[; ;newmain.c: 144:     can_init();
+[; ;newmain.c: 144:     INTCONbits.T0IE = 1;
+[e = . . _INTCONbits 1 5 -> -> 1 `i `uc ]
+"145
+[; ;newmain.c: 145:     can_init();
 [e ( _can_init ..  ]
-"146
-[; ;newmain.c: 146:     while(1)
-[e :U 1536 ]
 "147
-[; ;newmain.c: 147:     {
-{
+[; ;newmain.c: 147:     while(1)
+[e :U 1536 ]
 "148
-[; ;newmain.c: 148:         can_rxbuff.fullid = can_rxbuff.idh<<3;
-[e = . _can_rxbuff 2 -> << -> . _can_rxbuff 0 `i -> 3 `i `us ]
+[; ;newmain.c: 148:     {
+{
 "149
-[; ;newmain.c: 149:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-[e = . _can_rxbuff 2 -> | -> . _can_rxbuff 2 `ui -> >> -> . _can_rxbuff 1 `i -> 5 `i `ui `us ]
+[; ;newmain.c: 149:         can_rxbuff.fullid = can_rxbuff.idh<<3;
+[e = . _can_rxbuff 2 -> << -> . _can_rxbuff 0 `i -> 3 `i `us ]
 "150
-[; ;newmain.c: 150:         if( can_rxbuff.fullid == 0xfe )
-[e $ ! == -> . _can_rxbuff 2 `ui -> -> 254 `i `ui 1538  ]
+[; ;newmain.c: 150:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
+[e = . _can_rxbuff 2 -> | -> . _can_rxbuff 2 `ui -> >> -> . _can_rxbuff 1 `i -> 5 `i `ui `us ]
 "151
-[; ;newmain.c: 151:         {
-{
+[; ;newmain.c: 151:          if( can_rxbuff.fullid == 0x12f )
+[e $ ! == -> . _can_rxbuff 2 `ui -> -> 303 `i `ui 1538  ]
 "152
-[; ;newmain.c: 152:             if( ( can_rxbuff.d0 == 0xa5 ) &&
-[e $ ! && && && && && && && == -> . _can_rxbuff 4 `i -> 165 `i == -> . _can_rxbuff 5 `i -> 252 `i == -> . _can_rxbuff 6 `i -> 208 `i == -> . _can_rxbuff 7 `i -> 221 `i == -> . _can_rxbuff 8 `i -> 252 `i == -> . _can_rxbuff 9 `i -> 253 `i == -> . _can_rxbuff 10 `i -> 189 `i == -> . _can_rxbuff 11 `i -> 0 `i 1539  ]
-"160
-[; ;newmain.c: 160:                         {
+[; ;newmain.c: 152:         {
 {
-"161
-[; ;newmain.c: 161:                             LATCbits.LATC1 = 0;
+"153
+[; ;newmain.c: 153:             if( ( can_rxbuff.d3 &0xd0) )
+[e $ ! != & -> . _can_rxbuff 7 `i -> 208 `i -> 0 `i 1539  ]
+"154
+[; ;newmain.c: 154:                         {
+{
+"155
+[; ;newmain.c: 155:                             LATCbits.LATC1 = 0;
 [e = . . _LATCbits 0 1 -> -> 0 `i `uc ]
-"162
-[; ;newmain.c: 162:                         }
+"156
+[; ;newmain.c: 156:                         }
 }
 [e :U 1539 ]
-"163
-[; ;newmain.c: 163:         }
+"157
+[; ;newmain.c: 157:         }
 }
 [e :U 1538 ]
-"164
-[; ;newmain.c: 164:         if( can_rxbuff.fullid == 0x130 )
-[e $ ! == -> . _can_rxbuff 2 `ui -> -> 304 `i `ui 1540  ]
-"165
-[; ;newmain.c: 165:         {
+"158
+[; ;newmain.c: 158:         if( can_rxbuff.fullid == 0x12f )
+[e $ ! == -> . _can_rxbuff 2 `ui -> -> 303 `i `ui 1540  ]
+"159
+[; ;newmain.c: 159:         {
 {
-"166
-[; ;newmain.c: 166:             if( ( can_rxbuff.d0 == 0x45 ) &&
-[e $ ! && && && && == -> . _can_rxbuff 4 `i -> 69 `i == -> . _can_rxbuff 5 `i -> 241 `i == -> . _can_rxbuff 6 `i -> 252 `i == -> . _can_rxbuff 7 `i -> 255 `i == -> . _can_rxbuff 8 `i -> 255 `i 1541  ]
-"171
-[; ;newmain.c: 171:                         {
+"160
+[; ;newmain.c: 160:             if( ( can_rxbuff.d6 & 0x03 ) )
+[e $ ! != & -> . _can_rxbuff 10 `i -> 3 `i -> 0 `i 1541  ]
+"161
+[; ;newmain.c: 161:                         {
 {
-"172
-[; ;newmain.c: 172:                             LATCbits.LATC0 = 0;
+"162
+[; ;newmain.c: 162:                             LATCbits.LATC0 = 0;
 [e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-"173
-[; ;newmain.c: 173:                         }
+"163
+[; ;newmain.c: 163:                         }
 }
 [e :U 1541 ]
-"174
-[; ;newmain.c: 174:         }
+"164
+[; ;newmain.c: 164:         }
 }
 [e :U 1540 ]
-"175
-[; ;newmain.c: 175:         if( can_rxbuff.fullid == 0x42 )
-[e $ ! == -> . _can_rxbuff 2 `ui -> -> 66 `i `ui 1542  ]
-"176
-[; ;newmain.c: 176:         {
-{
-"177
-[; ;newmain.c: 177:             if( ( can_rxbuff.d0 == 0x00 ) &&
-[e $ ! && && && && && && && == -> . _can_rxbuff 4 `i -> 0 `i == -> . _can_rxbuff 5 `i -> 0 `i == -> . _can_rxbuff 6 `i -> 8 `i == -> . _can_rxbuff 7 `i -> 0 `i == -> . _can_rxbuff 8 `i -> 3 `i == -> . _can_rxbuff 9 `i -> 110 `i == -> . _can_rxbuff 10 `i -> 133 `i == -> . _can_rxbuff 11 `i -> 244 `i 1543  ]
-"185
-[; ;newmain.c: 185:                         {
-{
-"186
-[; ;newmain.c: 186:                             LATBbits.LATB6 = 0;
-[e = . . _LATBbits 0 6 -> -> 0 `i `uc ]
-"187
-[; ;newmain.c: 187:                         }
-}
-[e :U 1543 ]
-"188
-[; ;newmain.c: 188:         }
-}
-[e :U 1542 ]
-"189
-[; ;newmain.c: 189:     }
+"204
+[; ;newmain.c: 204:     }
 }
 [e :U 1535 ]
 [e $U 1536  ]
 [e :U 1537 ]
-"190
-[; ;newmain.c: 190:     return;
+"205
+[; ;newmain.c: 205:     return;
 [e $UE 1534  ]
-"191
-[; ;newmain.c: 191: }
+"206
+[; ;newmain.c: 206: }
 [e :UE 1534 ]
 }
 [v $root$_myISR `(v ~T0 @X0 0 e ]
-"192
-[; ;newmain.c: 192: void __attribute__((picinterrupt(("")))) myISR(void)
+"207
+[; ;newmain.c: 207: void __attribute__((picinterrupt(("")))) myISR(void)
 [v _myISR `(v ~T5 @X0 1 ef ]
-"193
-[; ;newmain.c: 193: {
+"208
+[; ;newmain.c: 208: {
 {
 [e :U _myISR ]
 [f ]
-"195
-[; ;newmain.c: 195:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
-[e $ ! && != -> . . _PIR5bits 0 0 `i -> 0 `i != -> . . _PIE5bits 0 0 `i -> 0 `i 1545  ]
-"196
-[; ;newmain.c: 196:   {
-{
-"197
-[; ;newmain.c: 197:   PIR5bits.RXB0IF = 0;
-[e = . . _PIR5bits 0 0 -> -> 0 `i `uc ]
-"199
-[; ;newmain.c: 199:   can_rxbuff.d0 = RXB0D0;
-[e = . _can_rxbuff 4 _RXB0D0 ]
-"200
-[; ;newmain.c: 200:   can_rxbuff.d1 = RXB0D1;
-[e = . _can_rxbuff 5 _RXB0D1 ]
-"201
-[; ;newmain.c: 201:   can_rxbuff.d2 = RXB0D2;
-[e = . _can_rxbuff 6 _RXB0D2 ]
-"202
-[; ;newmain.c: 202:   can_rxbuff.d3 = RXB0D3;
-[e = . _can_rxbuff 7 _RXB0D3 ]
-"203
-[; ;newmain.c: 203:         can_rxbuff.d4 = RXB0D4;
-[e = . _can_rxbuff 8 _RXB0D4 ]
-"204
-[; ;newmain.c: 204:         can_rxbuff.d5 = RXB0D5;
-[e = . _can_rxbuff 9 _RXB0D5 ]
-"205
-[; ;newmain.c: 205:         can_rxbuff.d6 = RXB0D6;
-[e = . _can_rxbuff 10 _RXB0D6 ]
-"206
-[; ;newmain.c: 206:         can_rxbuff.d7 = RXB0D7;
-[e = . _can_rxbuff 11 _RXB0D7 ]
-"207
-[; ;newmain.c: 207:   can_rxbuff.dl = RXB0DLC;
-[e = . _can_rxbuff 3 _RXB0DLC ]
-"208
-[; ;newmain.c: 208:         can_rxbuff.idh = RXB0SIDH;
-[e = . _can_rxbuff 0 _RXB0SIDH ]
-"209
-[; ;newmain.c: 209:         can_rxbuff.idl = (RXB0SIDL&0xe0);
-[e = . _can_rxbuff 1 -> & -> _RXB0SIDL `i -> 224 `i `uc ]
+"210
+[; ;newmain.c: 210:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
+[e $ ! && != -> . . _PIR5bits 0 0 `i -> 0 `i != -> . . _PIE5bits 0 0 `i -> 0 `i 1543  ]
 "211
-[; ;newmain.c: 211:         RXB0CONbits.RXFUL = 0;
-[e = . . _RXB0CONbits 0 7 -> -> 0 `i `uc ]
+[; ;newmain.c: 211:   {
+{
 "212
-[; ;newmain.c: 212:   }
+[; ;newmain.c: 212:   PIR5bits.RXB0IF = 0;
+[e = . . _PIR5bits 0 0 -> -> 0 `i `uc ]
+"214
+[; ;newmain.c: 214:   can_rxbuff.d0 = RXB0D0;
+[e = . _can_rxbuff 4 _RXB0D0 ]
+"215
+[; ;newmain.c: 215:   can_rxbuff.d1 = RXB0D1;
+[e = . _can_rxbuff 5 _RXB0D1 ]
+"216
+[; ;newmain.c: 216:   can_rxbuff.d2 = RXB0D2;
+[e = . _can_rxbuff 6 _RXB0D2 ]
+"217
+[; ;newmain.c: 217:   can_rxbuff.d3 = RXB0D3;
+[e = . _can_rxbuff 7 _RXB0D3 ]
+"218
+[; ;newmain.c: 218:         can_rxbuff.d4 = RXB0D4;
+[e = . _can_rxbuff 8 _RXB0D4 ]
+"219
+[; ;newmain.c: 219:         can_rxbuff.d5 = RXB0D5;
+[e = . _can_rxbuff 9 _RXB0D5 ]
+"220
+[; ;newmain.c: 220:         can_rxbuff.d6 = RXB0D6;
+[e = . _can_rxbuff 10 _RXB0D6 ]
+"221
+[; ;newmain.c: 221:         can_rxbuff.d7 = RXB0D7;
+[e = . _can_rxbuff 11 _RXB0D7 ]
+"222
+[; ;newmain.c: 222:   can_rxbuff.dl = RXB0DLC;
+[e = . _can_rxbuff 3 _RXB0DLC ]
+"223
+[; ;newmain.c: 223:         can_rxbuff.idh = RXB0SIDH;
+[e = . _can_rxbuff 0 _RXB0SIDH ]
+"224
+[; ;newmain.c: 224:         can_rxbuff.idl = (RXB0SIDL&0xe0);
+[e = . _can_rxbuff 1 -> & -> _RXB0SIDL `i -> 224 `i `uc ]
+"226
+[; ;newmain.c: 226:         RXB0CONbits.RXFUL = 0;
+[e = . . _RXB0CONbits 0 7 -> -> 0 `i `uc ]
+"227
+[; ;newmain.c: 227:   }
+}
+[e :U 1543 ]
+"228
+[; ;newmain.c: 228:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
+[e $ ! && != -> . . _INTCONbits 1 5 `i -> 0 `i != -> . . _INTCONbits 0 2 `i -> 0 `i 1544  ]
+"229
+[; ;newmain.c: 229:     {
+{
+"230
+[; ;newmain.c: 230:         ledtimer++;
+[e ++ _ledtimer -> -> 1 `i `us ]
+"231
+[; ;newmain.c: 231:         if(ledtimer > 500)
+[e $ ! > -> _ledtimer `ui -> -> 500 `i `ui 1545  ]
+"232
+[; ;newmain.c: 232:         {
+{
+"233
+[; ;newmain.c: 233:             LATBbits.LATB7 ^= 1;
+[e =^ . . _LATBbits 0 7 -> -> 1 `i `Vuc ]
+"234
+[; ;newmain.c: 234:             ledtimer = 0;
+[e = _ledtimer -> -> 0 `i `us ]
+"235
+[; ;newmain.c: 235:         }
 }
 [e :U 1545 ]
-"213
-[; ;newmain.c: 213:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
-[e $ ! && != -> . . _INTCONbits 1 5 `i -> 0 `i != -> . . _INTCONbits 0 2 `i -> 0 `i 1546  ]
-"214
-[; ;newmain.c: 214:     {
-{
-"215
-[; ;newmain.c: 215:         ledtimer++;
-[e ++ _ledtimer -> -> 1 `i `us ]
-"216
-[; ;newmain.c: 216:         if(ledtimer > 500)
-[e $ ! > -> _ledtimer `ui -> -> 500 `i `ui 1547  ]
-"217
-[; ;newmain.c: 217:         {
-{
-"218
-[; ;newmain.c: 218:             LATBbits.LATB7 ^= 1;
-[e =^ . . _LATBbits 0 7 -> -> 1 `i `Vuc ]
-"219
-[; ;newmain.c: 219:             ledtimer = 0;
-[e = _ledtimer -> -> 0 `i `us ]
-"220
-[; ;newmain.c: 220:         }
-}
-[e :U 1547 ]
-"221
-[; ;newmain.c: 221:         TMR0H = 0xC1;
-[e = _TMR0H -> -> 193 `i `uc ]
-"222
-[; ;newmain.c: 222:         TMR0L = 0x7F;
-[e = _TMR0L -> -> 127 `i `uc ]
-"223
-[; ;newmain.c: 223:         INTCONbits.TMR0IF = 0;
+"236
+[; ;newmain.c: 236:         TMR0H = 0xf8;
+[e = _TMR0H -> -> 248 `i `uc ]
+"237
+[; ;newmain.c: 237:         TMR0L = 0x2F;
+[e = _TMR0L -> -> 47 `i `uc ]
+"238
+[; ;newmain.c: 238:         INTCONbits.TMR0IF = 0;
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"225
-[; ;newmain.c: 225:     }
+"240
+[; ;newmain.c: 240:     }
 }
-[e :U 1546 ]
-"226
-[; ;newmain.c: 226: }
-[e :UE 1544 ]
+[e :U 1544 ]
+"241
+[; ;newmain.c: 241: }
+[e :UE 1542 ]
 }

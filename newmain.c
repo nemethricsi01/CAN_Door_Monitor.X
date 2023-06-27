@@ -130,6 +130,7 @@ void main(void) {
     INTCONbits.PEIE = 1;
     TRISCbits.TRISC0 = 0;//LED2
     TRISCbits.TRISC1 = 0;//LED1
+    TRISCbits.TRISC2 = 1;//STBY
     TRISBbits.TRISB6 = 0;//LED3
     TRISBbits.TRISB7 = 0;//LED5
     LATCbits.LATC0 = 1;
@@ -147,45 +148,59 @@ void main(void) {
     {
         can_rxbuff.fullid = can_rxbuff.idh<<3;
         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-        if( can_rxbuff.fullid == 0xfe )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
+         if( can_rxbuff.fullid == 0x12f )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
         {
-            if(     ( can_rxbuff.d0 == 0xa5 ) &&
-                    ( can_rxbuff.d1 == 0xFC ) &&
-                    ( can_rxbuff.d2 == 0xD0 ) &&
-                    ( can_rxbuff.d3 == 0xDD ) &&
-                    ( can_rxbuff.d4 == 0xFC ) &&
-                    ( can_rxbuff.d5 == 0xFD ) &&
-                    ( can_rxbuff.d6 == 0xBD ) &&
-                    ( can_rxbuff.d7 == 0x00 )       )
+            if(     ( can_rxbuff.d3 &0xd0)       )
                         {
                             LATCbits.LATC1 = 0;
                         }
         }
-        if( can_rxbuff.fullid == 0x130 )//LED2 Second IGN ON 0x130 45 F1 FC FF FF
+        if( can_rxbuff.fullid == 0x12f )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
         {
-            if(     ( can_rxbuff.d0 == 0x45 ) &&
-                    ( can_rxbuff.d1 == 0xf1 ) &&
-                    ( can_rxbuff.d2 == 0xfc ) &&
-                    ( can_rxbuff.d3 == 0xff ) &&
-                    ( can_rxbuff.d4 == 0xff )     )
+            if(     ( can_rxbuff.d6 & 0x03 )       )
                         {
                             LATCbits.LATC0 = 0;
                         }
         }
-        if( can_rxbuff.fullid == 0x42 )//LED3 Door Open 0x42 00 00 08 00 03 6E 85 F4
-        {
-            if(     ( can_rxbuff.d0 == 0x00 ) &&
-                    ( can_rxbuff.d1 == 0x00 ) &&
-                    ( can_rxbuff.d2 == 0x08 ) &&
-                    ( can_rxbuff.d3 == 0x00 ) &&
-                    ( can_rxbuff.d4 == 0x03 ) &&
-                    ( can_rxbuff.d5 == 0x6e ) &&
-                    ( can_rxbuff.d6 == 0x85 ) &&
-                    ( can_rxbuff.d7 == 0xf4 )    )
-                        {
-                            LATBbits.LATB6 = 0;
-                        }
-        }
+//        if( can_rxbuff.fullid == 0xfe )//LED1 IGN ON 0xFE A5 FC D0 DD FC FD BD 00
+//        {
+//            if(     ( can_rxbuff.d0 == 0xa5 ) &&
+//                    ( can_rxbuff.d1 == 0xFC ) &&
+//                    ( can_rxbuff.d2 == 0xD0 ) &&
+//                    ( can_rxbuff.d3 == 0xDD ) &&
+//                    ( can_rxbuff.d4 == 0xFC ) &&
+//                    ( can_rxbuff.d5 == 0xFD ) &&
+//                    ( can_rxbuff.d6 == 0xBD ) &&
+//                    ( can_rxbuff.d7 == 0x00 )       )
+//                        {
+//                            LATCbits.LATC1 = 0;
+//                        }
+//        }
+//        if( can_rxbuff.fullid == 0x130 )//LED2 Second IGN ON 0x130 45 F1 FC FF FF
+//        {
+//            if(     ( can_rxbuff.d0 == 0x45 ) &&
+//                    ( can_rxbuff.d1 == 0xf1 ) &&
+//                    ( can_rxbuff.d2 == 0xfc ) &&
+//                    ( can_rxbuff.d3 == 0xff ) &&
+//                    ( can_rxbuff.d4 == 0xff )     )
+//                        {
+//                            LATCbits.LATC0 = 0;
+//                        }
+//        }
+//        if( can_rxbuff.fullid == 0x42 )//LED3 Door Open 0x42 00 00 08 00 03 6E 85 F4
+//        {
+//            if(     ( can_rxbuff.d0 == 0x00 ) &&
+//                    ( can_rxbuff.d1 == 0x00 ) &&
+//                    ( can_rxbuff.d2 == 0x08 ) &&
+//                    ( can_rxbuff.d3 == 0x00 ) &&
+//                    ( can_rxbuff.d4 == 0x03 ) &&
+//                    ( can_rxbuff.d5 == 0x6e ) &&
+//                    ( can_rxbuff.d6 == 0x85 ) &&
+//                    ( can_rxbuff.d7 == 0xf4 )    )
+//                        {
+//                            LATBbits.LATB6 = 0;
+//                        }
+//        }
     }
     return;
 }
@@ -218,8 +233,8 @@ void __interrupt() myISR(void)
             LATBbits.LATB7 ^= 1;
             ledtimer = 0;
         }
-        TMR0H = 0xC1;//preload timer so the timer period is about 1ms roughly
-        TMR0L = 0x7F;
+        TMR0H = 0xf8;//preload timer so the timer period is about 1ms roughly
+        TMR0L = 0x2F;
         INTCONbits.TMR0IF = 0;
         
     }
