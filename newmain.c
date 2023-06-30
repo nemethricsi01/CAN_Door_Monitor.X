@@ -130,15 +130,15 @@ void main(void) {
     PIE5bits.RXB0IE = 1;
     INTCONbits.GIE = 1;
     INTCONbits.PEIE = 1;
-    TRISCbits.TRISC0 = 0;//LED2
-    TRISCbits.TRISC1 = 0;//LED1
-    TRISCbits.TRISC2 = 1;//STBY
-    TRISBbits.TRISB6 = 0;//LED3
     TRISBbits.TRISB7 = 0;//LED5
-    LATCbits.LATC0 = 1;
-    LATCbits.LATC1 = 1;
-    LATBbits.LATB6 = 1;
-    LATBbits.LATB7 = 1;
+    TRISBbits.TRISB6 = 0;//LED3
+    TRISCbits.TRISC2 = 1;//STBY
+    TRISBbits.TRISB5 = 0;//LED1
+    TRISBbits.TRISB4 = 0;//LED2
+    LATBbits.LATB7 = 1;//LED5
+    LATBbits.LATB6 = 1;//LED3
+    LATBbits.LATB5 = 1;//LED1
+    LATBbits.LATB4 = 1;//LED2
     T0CONbits.TMR0ON = 0;//disable timer0
     T0CONbits.T08BIT = 0;//Timer0 is 16 bits wide
     T0CONbits.T0CS = 0;//internal clock
@@ -151,15 +151,15 @@ void main(void) {
         can_rxbuff.fullid = can_rxbuff.idh<<3;
         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
         
-//        if(canMessageFlag)
-//        {
-//            if( ( ledHighTimer + ledLowTimer ) == 0 )
-//            {
-//                LATCbits.LATC0 = 0;
-//                ledHighTimer = 500;
-//            }
-//            canMessageFlag = 0;
-//        }
+        if(canMessageFlag)
+        {
+            if( ( ledHighTimer + ledLowTimer ) == 0 )
+            {
+                LATBbits.LATB5 = 0;
+                ledHighTimer = 500;
+            }
+            canMessageFlag = 0;
+        }
         
         
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,14 +168,14 @@ void main(void) {
         {
             if( ( can_rxbuff.d3 &0xf0 ) == 0xd0 )
                         {
-                            LATCbits.LATC1 = 0;
+                            LATBbits.LATB5 = 0;
                         }
         }
         if( can_rxbuff.fullid == 0x12f )
         {
             if( ( can_rxbuff.d6 & 0x0f ) == 0x03 )
                         {
-                            LATCbits.LATC0 = 0;
+                            LATBbits.LATB4 = 0;
                         }
         }
         
@@ -263,7 +263,7 @@ void __interrupt() myISR(void)
             if(ledHighTimer == 0)
             {
                 ledLowTimer = 500;
-                LATCbits.LATC0 = 1;
+                LATBbits.LATB5 = 1;
             }
         }
         if(ledLowTimer > 0)

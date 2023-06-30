@@ -1,39 +1,39 @@
 [p GLOBOPT AUTOSTATIC IEEE_FLT IEEE_DBL LFSROK EMI_WORD ]
 [d version 1.1 ]
 [d edition pro ]
-[d chip 18F26K80 ]
+[d chip 18F25K80 ]
 [d frameptr 4065 ]
-"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\fleq.c
+"4 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\fleq.c
 [v ___fleq __fleq `(b  1 e 0 0 ]
-"62 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\float.c
+"62 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\float.c
 [v ___ftpack __ftpack `(f  1 e 4 0 ]
-"86 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftadd.c
+"86 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 4 0 ]
-"54 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftdiv.c
+"54 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 4 0 ]
-"62 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftmul.c
+"62 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 4 0 ]
-"19 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftsub.c
+"19 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 4 0 ]
-"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
+"10 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "245
 [v ___flsub __flsub `(d  1 e 4 0 ]
-"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
+"11 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcdiv.c
 [v ___fldiv __fldiv `(d  1 e 4 0 ]
-"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcmul.c
+"8 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
-"15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c
+"15 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"91 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul64.c
+"91 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"92 C:\Users\nemet\Documents\mplabx_projects\CAN_Door_Monitor.X\newmain.c
+"92 D:\mplabx_projektek\CAN_Door_Monitor.X\newmain.c
 [v _can_init can_init `(v  1 e 1 0 ]
 "128
 [v _main main `(v  1 e 1 0 ]
 "228
 [v _myISR myISR `IIH(v  1 e 1 0 ]
-"193 C:/Users/nemet/.mchp_packs/Microchip/PIC18F-K_DFP/1.6.125/xc8\pic\include\proc\pic18f26k80.h
+"193 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18F-K_DFP/1.5.114/xc8\pic\include\proc\pic18f25k80.h
 [v _BRGCON1 BRGCON1 `VEuc  1 e 1 @3651 ]
 "269
 [v _BRGCON2 BRGCON2 `VEuc  1 e 1 @3652 ]
@@ -71,7 +71,7 @@
 [v _RXM1EIDH RXM1EIDH `VEuc  1 e 1 @3838 ]
 "19896
 [v _RXM1EIDL RXM1EIDL `VEuc  1 e 1 @3839 ]
-[s S446 . 1 `uc 1 FILHIT0 1 0 :1:0 
+[s S406 . 1 `uc 1 FILHIT0 1 0 :1:0 
 `uc 1 JTOFF_FILHIT1 1 0 :1:1 
 `uc 1 RB0DBEN_FILHIT2 1 0 :1:2 
 `uc 1 RXRTRRO_FILHIT3 1 0 :1:3 
@@ -81,21 +81,21 @@
 `uc 1 RXFUL 1 0 :1:7 
 ]
 "27632
-[s S455 . 1 `uc 1 . 1 0 :1:0 
+[s S415 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 JTOFF 1 0 :1:1 
 `uc 1 RB0DBEN 1 0 :1:2 
 `uc 1 RXRTRRO 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 RTRRO 1 0 :1:5 
 ]
-[s S462 . 1 `uc 1 . 1 0 :1:0 
+[s S422 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 FILHIT1 1 0 :1:1 
 `uc 1 FILHIT2 1 0 :1:2 
 `uc 1 FILHIT3 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 RXM0 1 0 :1:5 
 ]
-[s S469 . 1 `uc 1 RXB0FILHIT0 1 0 :1:0 
+[s S429 . 1 `uc 1 RXB0FILHIT0 1 0 :1:0 
 `uc 1 RXB0FILHIT1 1 0 :1:1 
 `uc 1 RXB0FILHIT2 1 0 :1:2 
 `uc 1 RXB0FILHIT3 1 0 :1:3 
@@ -104,13 +104,13 @@
 `uc 1 RXB0M1 1 0 :1:6 
 `uc 1 RXB0FUL 1 0 :1:7 
 ]
-[s S478 . 1 `uc 1 . 1 0 :3:0 
+[s S438 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 RXB0RTRR0 1 0 :1:3 
 `uc 1 . 1 0 :1:4 
 `uc 1 RXB0RTRRO 1 0 :1:5 
 ]
-[u S483 . 1 `S446 1 . 1 0 `S455 1 . 1 0 `S462 1 . 1 0 `S469 1 . 1 0 `S478 1 . 1 0 ]
-[v _RXB0CONbits RXB0CONbits `VES483  1 e 1 @3936 ]
+[u S443 . 1 `S406 1 . 1 0 `S415 1 . 1 0 `S422 1 . 1 0 `S429 1 . 1 0 `S438 1 . 1 0 ]
+[v _RXB0CONbits RXB0CONbits `VES443  1 e 1 @3936 ]
 "27767
 [v _RXB0SIDH RXB0SIDH `VEuc  1 e 1 @3937 ]
 "27887
@@ -214,7 +214,7 @@
 ]
 [u S209 . 1 `S195 1 . 1 0 `S204 1 . 1 0 ]
 [v _PIE5bits PIE5bits `VES209  1 e 1 @3958 ]
-[s S403 . 1 `uc 1 RXB0IF 1 0 :1:0 
+[s S363 . 1 `uc 1 RXB0IF 1 0 :1:0 
 `uc 1 RXB1IF 1 0 :1:1 
 `uc 1 TXB0IF 1 0 :1:2 
 `uc 1 TXB1IF 1 0 :1:3 
@@ -224,14 +224,14 @@
 `uc 1 IRXIF 1 0 :1:7 
 ]
 "29504
-[s S412 . 1 `uc 1 FIFOWMIF 1 0 :1:0 
+[s S372 . 1 `uc 1 FIFOWMIF 1 0 :1:0 
 `uc 1 RXBnIF 1 0 :1:1 
 `uc 1 . 1 0 :2:2 
 `uc 1 TXBnIF 1 0 :1:4 
 ]
-[u S417 . 1 `S403 1 . 1 0 `S412 1 . 1 0 ]
-[v _PIR5bits PIR5bits `VES417  1 e 1 @3959 ]
-[s S337 . 1 `uc 1 LATB0 1 0 :1:0 
+[u S377 . 1 `S363 1 . 1 0 `S372 1 . 1 0 ]
+[v _PIR5bits PIR5bits `VES377  1 e 1 @3959 ]
+[s S297 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -241,7 +241,7 @@
 `uc 1 LATB7 1 0 :1:7 
 ]
 "30355
-[s S346 . 1 `uc 1 LB0 1 0 :1:0 
+[s S306 . 1 `uc 1 LB0 1 0 :1:0 
 `uc 1 LB1 1 0 :1:1 
 `uc 1 LB2 1 0 :1:2 
 `uc 1 LB3 1 0 :1:3 
@@ -250,29 +250,8 @@
 `uc 1 LB6 1 0 :1:6 
 `uc 1 LB7 1 0 :1:7 
 ]
-[u S355 . 1 `S337 1 . 1 0 `S346 1 . 1 0 ]
-[v _LATBbits LATBbits `VES355  1 e 1 @3978 ]
-[s S297 . 1 `uc 1 LATC0 1 0 :1:0 
-`uc 1 LATC1 1 0 :1:1 
-`uc 1 LATC2 1 0 :1:2 
-`uc 1 LATC3 1 0 :1:3 
-`uc 1 LATC4 1 0 :1:4 
-`uc 1 LATC5 1 0 :1:5 
-`uc 1 LATC6 1 0 :1:6 
-`uc 1 LATC7 1 0 :1:7 
-]
-"30467
-[s S306 . 1 `uc 1 LC0 1 0 :1:0 
-`uc 1 LC1 1 0 :1:1 
-`uc 1 LC2 1 0 :1:2 
-`uc 1 LC3 1 0 :1:3 
-`uc 1 LC4 1 0 :1:4 
-`uc 1 LC5 1 0 :1:5 
-`uc 1 LC6 1 0 :1:6 
-`uc 1 LC7 1 0 :1:7 
-]
 [u S315 . 1 `S297 1 . 1 0 `S306 1 . 1 0 ]
-[v _LATCbits LATCbits `VES315  1 e 1 @3979 ]
+[v _LATBbits LATBbits `VES315  1 e 1 @3978 ]
 [s S37 . 1 `uc 1 TRISB0 1 0 :1:0 
 `uc 1 TRISB1 1 0 :1:1 
 `uc 1 TRISB2 1 0 :1:2 
@@ -297,7 +276,7 @@
 "30782
 [u S285 . 1 `S276 1 . 1 0 ]
 [v _TRISCbits TRISCbits `VES285  1 e 1 @3988 ]
-[s S377 . 1 `uc 1 T0PS 1 0 :3:0 
+[s S337 . 1 `uc 1 T0PS 1 0 :3:0 
 `uc 1 PSA 1 0 :1:3 
 `uc 1 T0SE 1 0 :1:4 
 `uc 1 T0CS 1 0 :1:5 
@@ -305,15 +284,15 @@
 `uc 1 TMR0ON 1 0 :1:7 
 ]
 "35791
-[s S384 . 1 `uc 1 T0PS0 1 0 :1:0 
+[s S344 . 1 `uc 1 T0PS0 1 0 :1:0 
 `uc 1 T0PS1 1 0 :1:1 
 `uc 1 T0PS2 1 0 :1:2 
 ]
 "35791
-[u S388 . 1 `S377 1 . 1 0 `S384 1 . 1 0 ]
+[u S348 . 1 `S337 1 . 1 0 `S344 1 . 1 0 ]
 "35791
 "35791
-[v _T0CONbits T0CONbits `VES388  1 e 1 @4053 ]
+[v _T0CONbits T0CONbits `VES348  1 e 1 @4053 ]
 "35848
 [v _TMR0L TMR0L `VEuc  1 e 1 @4054 ]
 "35868
@@ -348,7 +327,7 @@
 "36682
 [v _INTCONbits INTCONbits `VES249  1 e 1 @4082 ]
 [s S24 CAN_RXBUFF 13 `uc 1 idh 1 0 `uc 1 idl 1 1 `us 1 fullid 2 2 `uc 1 dl 1 4 `uc 1 d0 1 5 `uc 1 d1 1 6 `uc 1 d2 1 7 `uc 1 d3 1 8 `uc 1 d4 1 9 `uc 1 d5 1 10 `uc 1 d6 1 11 `uc 1 d7 1 12 ]
-"88 C:\Users\nemet\Documents\mplabx_projects\CAN_Door_Monitor.X\newmain.c
+"88 D:\mplabx_projektek\CAN_Door_Monitor.X\newmain.c
 [v _can_rxbuff can_rxbuff `S24  1 e 13 0 ]
 "89
 [v _ledtimer ledtimer `us  1 e 2 0 ]

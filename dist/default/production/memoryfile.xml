@@ -3,9 +3,9 @@
   <executable name="dist/default/production\CAN_Door_Monitor.X.production.hex">
     <memory name="program">
       <units>bytes</units>
-      <length>65536</length>
-      <used>612</used>
-      <free>64924</free>
+      <length>32768</length>
+      <used>672</used>
+      <free>32096</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
