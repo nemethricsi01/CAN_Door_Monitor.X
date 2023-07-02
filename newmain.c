@@ -69,7 +69,11 @@
 
 #include <xc.h>
 
-#define _XTAL_FREQ 16000000
+#define _XTAL_FREQ          16000000
+
+#define IGN_DELAY_TIME      1000
+#define BRAKE_DELAY_TIME    1000
+
 struct CAN_RXBUFF
    {
     uint8_t idh;
@@ -89,6 +93,7 @@ struct CAN_RXBUFF can_rxbuff;
 uint16_t ledtimer = 0;
 uint8_t  canMessageFlag;
 uint16_t ledHighTimer,ledLowTimer;
+uint16_t ignTimer,brakeTimer;
 void can_init(void)
 {
 
@@ -155,7 +160,7 @@ void main(void) {
         {
             if( ( ledHighTimer + ledLowTimer ) == 0 )
             {
-                LATBbits.LATB5 = 0;
+                LATBbits.LATB4 = 0;
                 ledHighTimer = 500;
             }
             canMessageFlag = 0;
@@ -167,16 +172,18 @@ void main(void) {
          if( can_rxbuff.fullid == 0x12f )
         {
             if( ( can_rxbuff.d3 &0xf0 ) == 0xd0 )
-                        {
-                            LATBbits.LATB5 = 0;
-                        }
+            {
+                LATBbits.LATB5 = 0;
+                ignTimer = IGN_DELAY_TIME;
+            }
         }
         if( can_rxbuff.fullid == 0x12f )
         {
             if( ( can_rxbuff.d6 & 0x0f ) == 0x03 )
-                        {
-                            LATBbits.LATB4 = 0;
-                        }
+            {
+                LATBbits.LATB6 = 0;
+                brakeTimer = BRAKE_DELAY_TIME;
+            }
         }
         
         
@@ -263,13 +270,30 @@ void __interrupt() myISR(void)
             if(ledHighTimer == 0)
             {
                 ledLowTimer = 500;
-                LATBbits.LATB5 = 1;
+                LATBbits.LATB4 = 1;
             }
         }
         if(ledLowTimer > 0)
         {
             ledLowTimer--;
             
+        }
+        
+        if(brakeTimer > 0)
+        {
+            brakeTimer--;
+            if(brakeTimer == 0)
+            {
+                LATBbits.LATB6 = 1;
+            }
+        }
+        if(ignTimer > 0)
+        {
+            ignTimer--;
+            if(ignTimer == 0)
+            {
+                LATBbits.LATB5 = 1;
+            }
         }
         TMR0H = 0xf8;//preload timer so the timer period is about 1ms roughly
         TMR0L = 0x2F;

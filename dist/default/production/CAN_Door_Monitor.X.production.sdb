@@ -3,35 +3,35 @@
 [d edition pro ]
 [d chip 18F25K80 ]
 [d frameptr 4065 ]
-"4 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\fleq.c
+"4 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\fleq.c
 [v ___fleq __fleq `(b  1 e 0 0 ]
-"62 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\float.c
+"62 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\float.c
 [v ___ftpack __ftpack `(f  1 e 4 0 ]
-"86 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftadd.c
+"86 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 4 0 ]
-"54 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftdiv.c
+"54 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftdiv.c
 [v ___ftdiv __ftdiv `(f  1 e 4 0 ]
-"62 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftmul.c
+"62 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftmul.c
 [v ___ftmul __ftmul `(f  1 e 4 0 ]
-"19 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\ftsub.c
+"19 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\ftsub.c
 [v ___ftsub __ftsub `(f  1 e 4 0 ]
-"10 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcadd.c
+"10 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcadd.c
 [v ___fladd __fladd `(d  1 e 4 0 ]
 "245
 [v ___flsub __flsub `(d  1 e 4 0 ]
-"11 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcdiv.c
+"11 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcdiv.c
 [v ___fldiv __fldiv `(d  1 e 4 0 ]
-"8 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\sprcmul.c
+"8 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\sprcmul.c
 [v ___flmul __flmul `(d  1 e 4 0 ]
-"15 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\Umul32.c
+"15 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul32.c
 [v ___lmul __lmul `(ul  1 e 4 0 ]
-"91 C:\Program Files\Microchip\xc8\v2.30\pic\sources\c99\common\Umul64.c
+"91 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\Umul64.c
 [v ___omul __omul `(uo  1 e 8 0 ]
-"92 D:\mplabx_projektek\CAN_Door_Monitor.X\newmain.c
+"97 C:\Users\nemet\Documents\mplabx_projects\CAN_Door_Monitor.X\newmain.c
 [v _can_init can_init `(v  1 e 1 0 ]
-"128
+"133
 [v _main main `(v  1 e 1 0 ]
-"228
+"235
 [v _myISR myISR `IIH(v  1 e 1 0 ]
 "193 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18F-K_DFP/1.5.114/xc8\pic\include\proc\pic18f25k80.h
 [v _BRGCON1 BRGCON1 `VEuc  1 e 1 @3651 ]
@@ -327,27 +327,30 @@
 "36682
 [v _INTCONbits INTCONbits `VES249  1 e 1 @4082 ]
 [s S24 CAN_RXBUFF 13 `uc 1 idh 1 0 `uc 1 idl 1 1 `us 1 fullid 2 2 `uc 1 dl 1 4 `uc 1 d0 1 5 `uc 1 d1 1 6 `uc 1 d2 1 7 `uc 1 d3 1 8 `uc 1 d4 1 9 `uc 1 d5 1 10 `uc 1 d6 1 11 `uc 1 d7 1 12 ]
-"88 D:\mplabx_projektek\CAN_Door_Monitor.X\newmain.c
+"92 C:\Users\nemet\Documents\mplabx_projects\CAN_Door_Monitor.X\newmain.c
 [v _can_rxbuff can_rxbuff `S24  1 e 13 0 ]
-"89
+"93
 [v _ledtimer ledtimer `us  1 e 2 0 ]
-"90
+"94
 [v _canMessageFlag canMessageFlag `uc  1 e 1 0 ]
-"91
+"95
 [v _ledHighTimer ledHighTimer `us  1 e 2 0 ]
 [v _ledLowTimer ledLowTimer `us  1 e 2 0 ]
-"128
+"96
+[v _ignTimer ignTimer `us  1 e 2 0 ]
+[v _brakeTimer brakeTimer `us  1 e 2 0 ]
+"133
 [v _main main `(v  1 e 1 0 ]
 {
-"227
+"234
 } 0
-"92
+"97
 [v _can_init can_init `(v  1 e 1 0 ]
 {
-"126
+"131
 } 0
-"228
+"235
 [v _myISR myISR `IIH(v  1 e 1 0 ]
 {
-"279
+"303
 } 0

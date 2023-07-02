@@ -1,9 +1,9 @@
 
 
-Microchip MPLAB XC8 Assembler V2.30 build 20200825195618 
-                                                                                               Fri Jun 30 11:10:48 2023
+Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
+                                                                                               Sun Jul 02 15:55:35 2023
 
-Microchip MPLAB XC8 C Compiler v2.30 (Free license) build 20200825195618 Og1 
+Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1 
      1                           	processor	18F25K80
      2                           	fnconf	rparam,??,?,0
      3                           	pagewidth 120
@@ -112,28 +112,28 @@ Microchip MPLAB XC8 C Compiler v2.30 (Free license) build 20200825195618 Og1
     98                           ; #config settings
     99                           
    100                           	psect	cinit
-   101  00028E                     __pcinit:
+   101  0002F6                     __pcinit:
    102                           	callstack 0
-   103  00028E                     start_initialization:
+   103  0002F6                     start_initialization:
    104                           	callstack 0
-   105  00028E                     __initialization:
+   105  0002F6                     __initialization:
    106                           	callstack 0
    107                           
-   108                           ; Clear objects allocated to COMRAM (20 bytes)
-   109  00028E  EE00  F001         	lfsr	0,__pbssCOMRAM
-   110  000292  0E14               	movlw	20
-   111  000294                     clear_0:
-   112  000294  6AEE               	clrf	postinc0,c
-   113  000296  06E8               	decf	wreg,f,c
-   114  000298  E1FD               	bnz	clear_0
-   115  00029A                     end_of_initialization:
+   108                           ; Clear objects allocated to COMRAM (24 bytes)
+   109  0002F6  EE00  F001         	lfsr	0,__pbssCOMRAM
+   110  0002FA  0E18               	movlw	24
+   111  0002FC                     clear_0:
+   112  0002FC  6AEE               	clrf	postinc0,c
+   113  0002FE  06E8               	decf	wreg,f,c
+   114  000300  E1FD               	bnz	clear_0
+   115  000302                     end_of_initialization:
    116                           	callstack 0
-   117  00029A                     __end_of__initialization:
+   117  000302                     __end_of__initialization:
    118                           	callstack 0
-   119  00029A  9017               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
-   120  00029C  9217               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
-   121  00029E  0100               	movlb	0
-   122  0002A0  EF7D  F000         	goto	_main	;jump to C main() function
+   119  000302  901B               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+   120  000304  921B               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   121  000306  0100               	movlb	0
+   122  000308  EFA9  F000         	goto	_main	;jump to C main() function
    123                           
    124                           	psect	bssCOMRAM
    125  000001                     __pbssCOMRAM:
@@ -141,870 +141,944 @@ Microchip MPLAB XC8 C Compiler v2.30 (Free license) build 20200825195618 Og1
    127  000001                     _can_rxbuff:
    128                           	callstack 0
    129  000001                     	ds	13
-   130  00000E                     _ledLowTimer:
+   130  00000E                     _brakeTimer:
    131                           	callstack 0
    132  00000E                     	ds	2
-   133  000010                     _ledHighTimer:
+   133  000010                     _ignTimer:
    134                           	callstack 0
    135  000010                     	ds	2
-   136  000012                     _ledtimer:
+   136  000012                     _ledLowTimer:
    137                           	callstack 0
    138  000012                     	ds	2
-   139  000014                     _canMessageFlag:
+   139  000014                     _ledHighTimer:
    140                           	callstack 0
-   141  000014                     	ds	1
-   142                           
-   143                           	psect	cstackCOMRAM
-   144  000015                     __pcstackCOMRAM:
-   145                           	callstack 0
-   146  000015                     ??_main:
-   147  000015                     
-   148                           ; 1 bytes @ 0x0
-   149  000015                     	ds	2
-   150                           
-   151 ;;
-   152 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
-   153 ;;
-   154 ;; *************** function _main *****************
-   155 ;; Defined at:
-   156 ;;		line 128 in file "newmain.c"
-   157 ;; Parameters:    Size  Location     Type
-   158 ;;		None
-   159 ;; Auto vars:     Size  Location     Type
-   160 ;;		None
-   161 ;; Return value:  Size  Location     Type
-   162 ;;                  1    wreg      void 
-   163 ;; Registers used:
-   164 ;;		wreg, status,2, status,0, cstack
-   165 ;; Tracked objects:
-   166 ;;		On entry : 0/0
-   167 ;;		On exit  : 0/0
-   168 ;;		Unchanged: 0/0
-   169 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+   141  000014                     	ds	2
+   142  000016                     _ledtimer:
+   143                           	callstack 0
+   144  000016                     	ds	2
+   145  000018                     _canMessageFlag:
+   146                           	callstack 0
+   147  000018                     	ds	1
+   148                           
+   149                           	psect	cstackCOMRAM
+   150  000019                     __pcstackCOMRAM:
+   151                           	callstack 0
+   152  000019                     ??_main:
+   153  000019                     
+   154                           ; 1 bytes @ 0x0
+   155  000019                     	ds	2
+   156                           
+   157 ;;
+   158 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   159 ;;
+   160 ;; *************** function _main *****************
+   161 ;; Defined at:
+   162 ;;		line 133 in file "newmain.c"
+   163 ;; Parameters:    Size  Location     Type
+   164 ;;		None
+   165 ;; Auto vars:     Size  Location     Type
+   166 ;;		None
+   167 ;; Return value:  Size  Location     Type
+   168 ;;                  1    wreg      void 
+   169 ;; Registers used:
+   170 ;;		wreg, status,2, status,0, cstack
+   171 ;; Tracked objects:
+   172 ;;		On entry : 0/0
+   173 ;;		On exit  : 0/0
+   174 ;;		Unchanged: 0/0
+   175 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
       +1  BANK12  BANK13  BANK14
-   170 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   176 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   171 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   177 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   172 ;;      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       
+   178 ;;      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   173 ;;      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       
+   179 ;;      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   174 ;;Total ram usage:        2 bytes
-   175 ;; Hardware stack levels required when called:    2
-   176 ;; This function calls:
-   177 ;;		_can_init
-   178 ;; This function is called by:
-   179 ;;		Startup code after reset
-   180 ;; This function uses a non-reentrant model
-   181 ;;
-   182                           
-   183                           	psect	text0
-   184  0000FA                     __ptext0:
-   185                           	callstack 0
-   186  0000FA                     _main:
-   187                           	callstack 29
-   188  0000FA                     
-   189                           ;newmain.c: 130:     PIE5bits.RXB0IE = 1;
-   190  0000FA  8076               	bsf	118,0,c	;volatile
-   191                           
-   192                           ;newmain.c: 131:     INTCONbits.GIE = 1;
-   193  0000FC  8EF2               	bsf	242,7,c	;volatile
-   194                           
-   195                           ;newmain.c: 132:     INTCONbits.PEIE = 1;
-   196  0000FE  8CF2               	bsf	242,6,c	;volatile
+   180 ;;Total ram usage:        2 bytes
+   181 ;; Hardware stack levels required when called: 2
+   182 ;; This function calls:
+   183 ;;		_can_init
+   184 ;; This function is called by:
+   185 ;;		Startup code after reset
+   186 ;; This function uses a non-reentrant model
+   187 ;;
+   188                           
+   189                           	psect	text0
+   190  000152                     __ptext0:
+   191                           	callstack 0
+   192  000152                     _main:
+   193                           	callstack 29
+   194  000152                     
+   195                           ;newmain.c: 135:     PIE5bits.RXB0IE = 1;
+   196  000152  8076               	bsf	118,0,c	;volatile
    197                           
-   198                           ;newmain.c: 133:     TRISBbits.TRISB7 = 0;
-   199  000100  9E93               	bcf	147,7,c	;volatile
+   198                           ;newmain.c: 136:     INTCONbits.GIE = 1;
+   199  000154  8EF2               	bsf	242,7,c	;volatile
    200                           
-   201                           ;newmain.c: 134:     TRISBbits.TRISB6 = 0;
-   202  000102  9C93               	bcf	147,6,c	;volatile
+   201                           ;newmain.c: 137:     INTCONbits.PEIE = 1;
+   202  000156  8CF2               	bsf	242,6,c	;volatile
    203                           
-   204                           ;newmain.c: 135:     TRISCbits.TRISC2 = 1;
-   205  000104  8494               	bsf	148,2,c	;volatile
+   204                           ;newmain.c: 138:     TRISBbits.TRISB7 = 0;
+   205  000158  9E93               	bcf	147,7,c	;volatile
    206                           
-   207                           ;newmain.c: 136:     TRISBbits.TRISB5 = 0;
-   208  000106  9A93               	bcf	147,5,c	;volatile
+   207                           ;newmain.c: 139:     TRISBbits.TRISB6 = 0;
+   208  00015A  9C93               	bcf	147,6,c	;volatile
    209                           
-   210                           ;newmain.c: 137:     TRISBbits.TRISB4 = 0;
-   211  000108  9893               	bcf	147,4,c	;volatile
+   210                           ;newmain.c: 140:     TRISCbits.TRISC2 = 1;
+   211  00015C  8494               	bsf	148,2,c	;volatile
    212                           
-   213                           ;newmain.c: 138:     LATBbits.LATB7 = 1;
-   214  00010A  8E8A               	bsf	138,7,c	;volatile
+   213                           ;newmain.c: 141:     TRISBbits.TRISB5 = 0;
+   214  00015E  9A93               	bcf	147,5,c	;volatile
    215                           
-   216                           ;newmain.c: 139:     LATBbits.LATB6 = 1;
-   217  00010C  8C8A               	bsf	138,6,c	;volatile
+   216                           ;newmain.c: 142:     TRISBbits.TRISB4 = 0;
+   217  000160  9893               	bcf	147,4,c	;volatile
    218                           
-   219                           ;newmain.c: 140:     LATBbits.LATB5 = 1;
-   220  00010E  8A8A               	bsf	138,5,c	;volatile
+   219                           ;newmain.c: 143:     LATBbits.LATB7 = 1;
+   220  000162  8E8A               	bsf	138,7,c	;volatile
    221                           
-   222                           ;newmain.c: 141:     LATBbits.LATB4 = 1;
-   223  000110  888A               	bsf	138,4,c	;volatile
+   222                           ;newmain.c: 144:     LATBbits.LATB6 = 1;
+   223  000164  8C8A               	bsf	138,6,c	;volatile
    224                           
-   225                           ;newmain.c: 142:     T0CONbits.TMR0ON = 0;
-   226  000112  9ED5               	bcf	213,7,c	;volatile
+   225                           ;newmain.c: 145:     LATBbits.LATB5 = 1;
+   226  000166  8A8A               	bsf	138,5,c	;volatile
    227                           
-   228                           ;newmain.c: 143:     T0CONbits.T08BIT = 0;
-   229  000114  9CD5               	bcf	213,6,c	;volatile
+   228                           ;newmain.c: 146:     LATBbits.LATB4 = 1;
+   229  000168  888A               	bsf	138,4,c	;volatile
    230                           
-   231                           ;newmain.c: 144:     T0CONbits.T0CS = 0;
-   232  000116  9AD5               	bcf	213,5,c	;volatile
+   231                           ;newmain.c: 147:     T0CONbits.TMR0ON = 0;
+   232  00016A  9ED5               	bcf	213,7,c	;volatile
    233                           
-   234                           ;newmain.c: 145:     T0CONbits.TMR0ON = 1;
-   235  000118  8ED5               	bsf	213,7,c	;volatile
+   234                           ;newmain.c: 148:     T0CONbits.T08BIT = 0;
+   235  00016C  9CD5               	bcf	213,6,c	;volatile
    236                           
-   237                           ;newmain.c: 146:     INTCONbits.T0IE = 1;
-   238  00011A  8AF2               	bsf	242,5,c	;volatile
-   239  00011C                     
-   240                           ;newmain.c: 147:     can_init();
-   241  00011C  ECFC  F000         	call	_can_init	;wreg free
-   242  000120                     l824:
-   243                           
-   244                           ;newmain.c: 150:     {;newmain.c: 151:         can_rxbuff.fullid = can_rxbuff.idh<<3;
-   245  000120  5001               	movf	_can_rxbuff^0,w,c
-   246  000122  6E15               	movwf	??_main^0,c
-   247  000124  6A16               	clrf	(??_main+1)^0,c
-   248  000126  90D8               	bcf	status,0,c
-   249  000128  3615               	rlcf	??_main^0,f,c
-   250  00012A  3616               	rlcf	(??_main+1)^0,f,c
-   251  00012C  90D8               	bcf	status,0,c
-   252  00012E  3615               	rlcf	??_main^0,f,c
-   253  000130  3616               	rlcf	(??_main+1)^0,f,c
-   254  000132  90D8               	bcf	status,0,c
-   255  000134  3615               	rlcf	??_main^0,f,c
-   256  000136  3616               	rlcf	(??_main+1)^0,f,c
-   257  000138  C015  F003         	movff	??_main,_can_rxbuff+2
-   258  00013C  C016  F004         	movff	??_main+1,_can_rxbuff+3
-   259  000140                     
-   260                           ;newmain.c: 152:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
-   261  000140  C002  F015         	movff	_can_rxbuff+1,??_main
-   262  000144  0E05               	movlw	5
-   263  000146  6E16               	movwf	(??_main+1)^0,c
-   264  000148                     u35:
-   265  000148  90D8               	bcf	status,0,c
-   266  00014A  3215               	rrcf	??_main^0,f,c
-   267  00014C  2E16               	decfsz	(??_main+1)^0,f,c
-   268  00014E  EFA4  F000         	goto	u35
-   269  000152  5003               	movf	(_can_rxbuff+2)^0,w,c
-   270  000154  1015               	iorwf	??_main^0,w,c
-   271  000156  6E03               	movwf	(_can_rxbuff+2)^0,c
-   272  000158  5004               	movf	(_can_rxbuff+3)^0,w,c
-   273  00015A  6E04               	movwf	(_can_rxbuff+3)^0,c
-   274  00015C                     
-   275                           ;newmain.c: 154:         if(canMessageFlag)
-   276  00015C  5014               	movf	_canMessageFlag^0,w,c
-   277  00015E  B4D8               	btfsc	status,2,c
-   278  000160  EFB4  F000         	goto	u41
-   279  000164  EFB6  F000         	goto	u40
-   280  000168                     u41:
-   281  000168  EFCC  F000         	goto	l836
-   282  00016C                     u40:
-   283  00016C                     
-   284                           ;newmain.c: 155:         {;newmain.c: 156:             if( ( ledHighTimer + ledLowTimer 
+   237                           ;newmain.c: 149:     T0CONbits.T0CS = 0;
+   238  00016E  9AD5               	bcf	213,5,c	;volatile
+   239                           
+   240                           ;newmain.c: 150:     T0CONbits.TMR0ON = 1;
+   241  000170  8ED5               	bsf	213,7,c	;volatile
+   242                           
+   243                           ;newmain.c: 151:     INTCONbits.T0IE = 1;
+   244  000172  8AF2               	bsf	242,5,c	;volatile
+   245  000174                     
+   246                           ;newmain.c: 152:     can_init();
+   247  000174  EC30  F001         	call	_can_init	;wreg free
+   248  000178                     l832:
+   249                           
+   250                           ;newmain.c: 155:     {;newmain.c: 156:         can_rxbuff.fullid = can_rxbuff.idh<<3;
+   251  000178  5001               	movf	_can_rxbuff^0,w,c
+   252  00017A  6E19               	movwf	??_main^0,c
+   253  00017C  6A1A               	clrf	(??_main+1)^0,c
+   254  00017E  90D8               	bcf	status,0,c
+   255  000180  3619               	rlcf	??_main^0,f,c
+   256  000182  361A               	rlcf	(??_main+1)^0,f,c
+   257  000184  90D8               	bcf	status,0,c
+   258  000186  3619               	rlcf	??_main^0,f,c
+   259  000188  361A               	rlcf	(??_main+1)^0,f,c
+   260  00018A  90D8               	bcf	status,0,c
+   261  00018C  3619               	rlcf	??_main^0,f,c
+   262  00018E  361A               	rlcf	(??_main+1)^0,f,c
+   263  000190  C019  F003         	movff	??_main,_can_rxbuff+2
+   264  000194  C01A  F004         	movff	??_main+1,_can_rxbuff+3
+   265  000198                     
+   266                           ;newmain.c: 157:         can_rxbuff.fullid = can_rxbuff.fullid | can_rxbuff.idl>>5;
+   267  000198  C002  F019         	movff	_can_rxbuff+1,??_main
+   268  00019C  0E05               	movlw	5
+   269  00019E  6E1A               	movwf	(??_main+1)^0,c
+   270  0001A0                     u35:
+   271  0001A0  90D8               	bcf	status,0,c
+   272  0001A2  3219               	rrcf	??_main^0,f,c
+   273  0001A4  2E1A               	decfsz	(??_main+1)^0,f,c
+   274  0001A6  EFD0  F000         	goto	u35
+   275  0001AA  5003               	movf	(_can_rxbuff+2)^0,w,c
+   276  0001AC  1019               	iorwf	??_main^0,w,c
+   277  0001AE  6E03               	movwf	(_can_rxbuff+2)^0,c
+   278  0001B0  5004               	movf	(_can_rxbuff+3)^0,w,c
+   279  0001B2  6E04               	movwf	(_can_rxbuff+3)^0,c
+   280  0001B4                     
+   281                           ;newmain.c: 159:         if(canMessageFlag)
+   282  0001B4  5018               	movf	_canMessageFlag^0,w,c
+   283  0001B6  B4D8               	btfsc	status,2,c
+   284  0001B8  EFE0  F000         	goto	u41
+   285  0001BC  EFE2  F000         	goto	u40
+   286  0001C0                     u41:
+   287  0001C0  EFF8  F000         	goto	l844
+   288  0001C4                     u40:
+   289  0001C4                     
+   290                           ;newmain.c: 160:         {;newmain.c: 161:             if( ( ledHighTimer + ledLowTimer 
       +                          ) == 0 )
-   285  00016C  500E               	movf	_ledLowTimer^0,w,c
-   286  00016E  2410               	addwf	_ledHighTimer^0,w,c
-   287  000170  6E15               	movwf	??_main^0,c
-   288  000172  500F               	movf	(_ledLowTimer+1)^0,w,c
-   289  000174  2011               	addwfc	(_ledHighTimer+1)^0,w,c
-   290  000176  6E16               	movwf	(??_main+1)^0,c
-   291  000178  5015               	movf	??_main^0,w,c
-   292  00017A  1016               	iorwf	(??_main+1)^0,w,c
-   293  00017C  A4D8               	btfss	status,2,c
-   294  00017E  EFC3  F000         	goto	u51
-   295  000182  EFC5  F000         	goto	u50
-   296  000186                     u51:
-   297  000186  EFCA  F000         	goto	l116
-   298  00018A                     u50:
-   299  00018A                     
-   300                           ;newmain.c: 157:             {;newmain.c: 158:                 LATBbits.LATB5 = 0;
-   301  00018A  9A8A               	bcf	138,5,c	;volatile
-   302  00018C                     
-   303                           ;newmain.c: 159:                 ledHighTimer = 500;
-   304  00018C  0E01               	movlw	1
-   305  00018E  6E11               	movwf	(_ledHighTimer+1)^0,c
-   306  000190  0EF4               	movlw	244
-   307  000192  6E10               	movwf	_ledHighTimer^0,c
-   308  000194                     l116:
-   309                           
-   310                           ;newmain.c: 161:             canMessageFlag = 0;
-   311  000194  0E00               	movlw	0
-   312  000196  6E14               	movwf	_canMessageFlag^0,c
-   313  000198                     l836:
-   314                           
-   315                           ;newmain.c: 167:          if( can_rxbuff.fullid == 0x12f )
-   316  000198  0E2F               	movlw	47
-   317  00019A  1803               	xorwf	(_can_rxbuff+2)^0,w,c
-   318  00019C  E106               	bnz	u61
-   319  00019E  0404               	decf	(_can_rxbuff+3)^0,w,c
-   320  0001A0  A4D8               	btfss	status,2,c
-   321  0001A2  EFD5  F000         	goto	u61
-   322  0001A6  EFD7  F000         	goto	u60
-   323  0001AA                     u61:
-   324  0001AA  EFE2  F000         	goto	l842
-   325  0001AE                     u60:
-   326  0001AE                     
-   327                           ;newmain.c: 168:         {;newmain.c: 169:             if( ( can_rxbuff.d3 &0xf0 ) == 0x
+   291  0001C4  5012               	movf	_ledLowTimer^0,w,c
+   292  0001C6  2414               	addwf	_ledHighTimer^0,w,c
+   293  0001C8  6E19               	movwf	??_main^0,c
+   294  0001CA  5013               	movf	(_ledLowTimer+1)^0,w,c
+   295  0001CC  2015               	addwfc	(_ledHighTimer+1)^0,w,c
+   296  0001CE  6E1A               	movwf	(??_main+1)^0,c
+   297  0001D0  5019               	movf	??_main^0,w,c
+   298  0001D2  101A               	iorwf	(??_main+1)^0,w,c
+   299  0001D4  A4D8               	btfss	status,2,c
+   300  0001D6  EFEF  F000         	goto	u51
+   301  0001DA  EFF1  F000         	goto	u50
+   302  0001DE                     u51:
+   303  0001DE  EFF6  F000         	goto	l120
+   304  0001E2                     u50:
+   305  0001E2                     
+   306                           ;newmain.c: 162:             {;newmain.c: 163:                 LATBbits.LATB4 = 0;
+   307  0001E2  988A               	bcf	138,4,c	;volatile
+   308  0001E4                     
+   309                           ;newmain.c: 164:                 ledHighTimer = 500;
+   310  0001E4  0E01               	movlw	1
+   311  0001E6  6E15               	movwf	(_ledHighTimer+1)^0,c
+   312  0001E8  0EF4               	movlw	244
+   313  0001EA  6E14               	movwf	_ledHighTimer^0,c
+   314  0001EC                     l120:
+   315                           
+   316                           ;newmain.c: 166:             canMessageFlag = 0;
+   317  0001EC  0E00               	movlw	0
+   318  0001EE  6E18               	movwf	_canMessageFlag^0,c
+   319  0001F0                     l844:
+   320                           
+   321                           ;newmain.c: 172:          if( can_rxbuff.fullid == 0x12f )
+   322  0001F0  0E2F               	movlw	47
+   323  0001F2  1803               	xorwf	(_can_rxbuff+2)^0,w,c
+   324  0001F4  E106               	bnz	u61
+   325  0001F6  0404               	decf	(_can_rxbuff+3)^0,w,c
+   326  0001F8  A4D8               	btfss	status,2,c
+   327  0001FA  EF01  F001         	goto	u61
+   328  0001FE  EF03  F001         	goto	u60
+   329  000202                     u61:
+   330  000202  EF12  F001         	goto	l852
+   331  000206                     u60:
+   332  000206                     
+   333                           ;newmain.c: 173:         {;newmain.c: 174:             if( ( can_rxbuff.d3 &0xf0 ) == 0x
       +                          d0 )
-   328  0001AE  5009               	movf	(_can_rxbuff+8)^0,w,c
-   329  0001B0  0BF0               	andlw	240
-   330  0001B2  0AD0               	xorlw	208
-   331  0001B4  A4D8               	btfss	status,2,c
-   332  0001B6  EFDF  F000         	goto	u71
-   333  0001BA  EFE1  F000         	goto	u70
-   334  0001BE                     u71:
-   335  0001BE  EFE2  F000         	goto	l842
-   336  0001C2                     u70:
-   337  0001C2                     
-   338                           ;newmain.c: 170:                         {;newmain.c: 171:                             L
-      +                          ATBbits.LATB5 = 0;
-   339  0001C2  9A8A               	bcf	138,5,c	;volatile
-   340  0001C4                     l842:
-   341                           
-   342                           ;newmain.c: 174:         if( can_rxbuff.fullid == 0x12f )
-   343  0001C4  0E2F               	movlw	47
-   344  0001C6  1803               	xorwf	(_can_rxbuff+2)^0,w,c
-   345  0001C8  E106               	bnz	u81
-   346  0001CA  0404               	decf	(_can_rxbuff+3)^0,w,c
-   347  0001CC  A4D8               	btfss	status,2,c
-   348  0001CE  EFEB  F000         	goto	u81
-   349  0001D2  EFED  F000         	goto	u80
-   350  0001D6                     u81:
-   351  0001D6  EF90  F000         	goto	l824
-   352  0001DA                     u80:
-   353  0001DA                     
-   354                           ;newmain.c: 175:         {;newmain.c: 176:             if( ( can_rxbuff.d6 & 0x0f ) == 0
+   334  000206  5009               	movf	(_can_rxbuff+8)^0,w,c
+   335  000208  0BF0               	andlw	240
+   336  00020A  0AD0               	xorlw	208
+   337  00020C  A4D8               	btfss	status,2,c
+   338  00020E  EF0B  F001         	goto	u71
+   339  000212  EF0D  F001         	goto	u70
+   340  000216                     u71:
+   341  000216  EF12  F001         	goto	l852
+   342  00021A                     u70:
+   343  00021A                     
+   344                           ;newmain.c: 175:             {;newmain.c: 176:                 LATBbits.LATB5 = 0;
+   345  00021A  9A8A               	bcf	138,5,c	;volatile
+   346  00021C                     
+   347                           ;newmain.c: 177:                 ignTimer = 1000;
+   348  00021C  0E03               	movlw	3
+   349  00021E  6E11               	movwf	(_ignTimer+1)^0,c
+   350  000220  0EE8               	movlw	232
+   351  000222  6E10               	movwf	_ignTimer^0,c
+   352  000224                     l852:
+   353                           
+   354                           ;newmain.c: 180:         if( can_rxbuff.fullid == 0x12f )
+   355  000224  0E2F               	movlw	47
+   356  000226  1803               	xorwf	(_can_rxbuff+2)^0,w,c
+   357  000228  E106               	bnz	u81
+   358  00022A  0404               	decf	(_can_rxbuff+3)^0,w,c
+   359  00022C  A4D8               	btfss	status,2,c
+   360  00022E  EF1B  F001         	goto	u81
+   361  000232  EF1D  F001         	goto	u80
+   362  000236                     u81:
+   363  000236  EFBC  F000         	goto	l832
+   364  00023A                     u80:
+   365  00023A                     
+   366                           ;newmain.c: 181:         {;newmain.c: 182:             if( ( can_rxbuff.d6 & 0x0f ) == 0
       +                          x03 )
-   355  0001DA  500C               	movf	(_can_rxbuff+11)^0,w,c
-   356  0001DC  0B0F               	andlw	15
-   357  0001DE  0A03               	xorlw	3
-   358  0001E0  A4D8               	btfss	status,2,c
-   359  0001E2  EFF5  F000         	goto	u91
-   360  0001E6  EFF7  F000         	goto	u90
-   361  0001EA                     u91:
-   362  0001EA  EF90  F000         	goto	l824
-   363  0001EE                     u90:
-   364  0001EE                     
-   365                           ;newmain.c: 177:                         {;newmain.c: 178:                             L
-      +                          ATBbits.LATB4 = 0;
-   366  0001EE  988A               	bcf	138,4,c	;volatile
-   367  0001F0  EF90  F000         	goto	l824
-   368  0001F4  EF7B  F000         	goto	start
-   369  0001F8                     __end_of_main:
-   370                           	callstack 0
-   371                           
-   372 ;; *************** function _can_init *****************
-   373 ;; Defined at:
-   374 ;;		line 92 in file "newmain.c"
-   375 ;; Parameters:    Size  Location     Type
-   376 ;;		None
-   377 ;; Auto vars:     Size  Location     Type
-   378 ;;		None
-   379 ;; Return value:  Size  Location     Type
-   380 ;;                  1    wreg      void 
-   381 ;; Registers used:
-   382 ;;		wreg, status,2, status,0
-   383 ;; Tracked objects:
-   384 ;;		On entry : 0/0
-   385 ;;		On exit  : 0/0
-   386 ;;		Unchanged: 0/0
-   387 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+   367  00023A  500C               	movf	(_can_rxbuff+11)^0,w,c
+   368  00023C  0B0F               	andlw	15
+   369  00023E  0A03               	xorlw	3
+   370  000240  A4D8               	btfss	status,2,c
+   371  000242  EF25  F001         	goto	u91
+   372  000246  EF27  F001         	goto	u90
+   373  00024A                     u91:
+   374  00024A  EFBC  F000         	goto	l832
+   375  00024E                     u90:
+   376  00024E                     
+   377                           ;newmain.c: 183:             {;newmain.c: 184:                 LATBbits.LATB6 = 0;
+   378  00024E  9C8A               	bcf	138,6,c	;volatile
+   379  000250                     
+   380                           ;newmain.c: 185:                 brakeTimer = 1000;
+   381  000250  0E03               	movlw	3
+   382  000252  6E0F               	movwf	(_brakeTimer+1)^0,c
+   383  000254  0EE8               	movlw	232
+   384  000256  6E0E               	movwf	_brakeTimer^0,c
+   385  000258  EFBC  F000         	goto	l832
+   386  00025C  EFA7  F000         	goto	start
+   387  000260                     __end_of_main:
+   388                           	callstack 0
+   389                           
+   390 ;; *************** function _can_init *****************
+   391 ;; Defined at:
+   392 ;;		line 97 in file "newmain.c"
+   393 ;; Parameters:    Size  Location     Type
+   394 ;;		None
+   395 ;; Auto vars:     Size  Location     Type
+   396 ;;		None
+   397 ;; Return value:  Size  Location     Type
+   398 ;;                  1    wreg      void 
+   399 ;; Registers used:
+   400 ;;		wreg, status,2, status,0
+   401 ;; Tracked objects:
+   402 ;;		On entry : 0/0
+   403 ;;		On exit  : 0/0
+   404 ;;		Unchanged: 0/0
+   405 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
       +1  BANK12  BANK13  BANK14
-   388 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   406 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   389 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   407 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   390 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   408 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   391 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   409 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   392 ;;Total ram usage:        0 bytes
-   393 ;; Hardware stack levels used:    1
-   394 ;; Hardware stack levels required when called:    1
-   395 ;; This function calls:
-   396 ;;		Nothing
-   397 ;; This function is called by:
-   398 ;;		_main
-   399 ;; This function uses a non-reentrant model
-   400 ;;
-   401                           
-   402                           	psect	text1
-   403  0001F8                     __ptext1:
-   404                           	callstack 0
-   405  0001F8                     _can_init:
-   406                           	callstack 29
-   407  0001F8                     
-   408                           ;newmain.c: 95:     TRISBbits.TRISB2 = 0;
-   409  0001F8  9493               	bcf	147,2,c	;volatile
-   410                           
-   411                           ;newmain.c: 96:     TRISBbits.TRISB3 = 1;
-   412  0001FA  8693               	bsf	147,3,c	;volatile
-   413  0001FC                     
-   414                           ;newmain.c: 98:     CANCONbits.REQOP = 0b100;
-   415  0001FC  506F               	movf	111,w,c	;volatile
-   416  0001FE  0B1F               	andlw	-225
-   417  000200  0980               	iorlw	128
-   418  000202  6E6F               	movwf	111,c	;volatile
-   419  000204                     l814:
-   420  000204  506E               	movf	110,w,c	;volatile
-   421  000206  0BE0               	andlw	224
-   422  000208  0A80               	xorlw	128
-   423  00020A  A4D8               	btfss	status,2,c
-   424  00020C  EF0A  F001         	goto	u11
-   425  000210  EF0C  F001         	goto	u10
-   426  000214                     u11:
-   427  000214  EF02  F001         	goto	l814
-   428  000218                     u10:
-   429  000218                     
-   430                           ;newmain.c: 100:     ECANCON = 0x00;
-   431  000218  0E00               	movlw	0
-   432  00021A  6E72               	movwf	114,c	;volatile
-   433                           
-   434                           ;newmain.c: 101:     RXM0EIDH = 0x00;
-   435  00021C  0E00               	movlw	0
-   436  00021E  010E               	movlb	14	; () banked
-   437  000220  6FFA               	movwf	250,b	;volatile
-   438                           
-   439                           ;newmain.c: 102:     RXM0EIDL = 0x00;
-   440  000222  0E00               	movlw	0
-   441  000224  6FFB               	movwf	251,b	;volatile
-   442                           
-   443                           ;newmain.c: 103:     RXM0SIDH = 0x00;
-   444  000226  0E00               	movlw	0
-   445  000228  6FF8               	movwf	248,b	;volatile
-   446                           
-   447                           ;newmain.c: 104:     RXM0SIDL = 0x00;
-   448  00022A  0E00               	movlw	0
-   449  00022C  6FF9               	movwf	249,b	;volatile
-   450                           
-   451                           ;newmain.c: 105:     RXM1EIDH = 0x00;
-   452  00022E  0E00               	movlw	0
-   453  000230  6FFE               	movwf	254,b	;volatile
-   454                           
-   455                           ;newmain.c: 106:     RXM1EIDL = 0x00;
-   456  000232  0E00               	movlw	0
-   457  000234  6FFF               	movwf	255,b	;volatile
-   458                           
-   459                           ;newmain.c: 107:     RXM1SIDH = 0x00;
-   460  000236  0E00               	movlw	0
-   461  000238  6FFC               	movwf	252,b	;volatile
-   462                           
-   463                           ;newmain.c: 108:     RXM1SIDL = 0x00;
-   464  00023A  0E00               	movlw	0
-   465  00023C  6FFD               	movwf	253,b	;volatile
-   466                           
-   467                           ;newmain.c: 109:     RXF0EIDH = 0x00;
-   468  00023E  0E00               	movlw	0
-   469  000240  6FE2               	movwf	226,b	;volatile
-   470                           
-   471                           ;newmain.c: 110:     RXF0EIDL = 0x00;
-   472  000242  0E00               	movlw	0
-   473  000244  6FE3               	movwf	227,b	;volatile
-   474                           
-   475                           ;newmain.c: 111:     RXF0SIDH = 0x00;
-   476  000246  0E00               	movlw	0
-   477  000248  6FE0               	movwf	224,b	;volatile
-   478                           
-   479                           ;newmain.c: 112:     RXF0SIDL = 0x00;
-   480  00024A  0E00               	movlw	0
-   481  00024C  6FE1               	movwf	225,b	;volatile
-   482                           
-   483                           ;newmain.c: 113:     RXF1EIDH = 0x00;
-   484  00024E  0E00               	movlw	0
-   485  000250  6FE6               	movwf	230,b	;volatile
-   486                           
-   487                           ;newmain.c: 114:     RXF1EIDL = 0x00;
-   488  000252  0E00               	movlw	0
-   489  000254  6FE7               	movwf	231,b	;volatile
-   490                           
-   491                           ;newmain.c: 115:     RXF1SIDH = 0x00;
-   492  000256  0E00               	movlw	0
-   493  000258  6FE4               	movwf	228,b	;volatile
-   494                           
-   495                           ;newmain.c: 116:     RXF1SIDL = 0x00;
-   496  00025A  0E00               	movlw	0
-   497  00025C  6FE5               	movwf	229,b	;volatile
-   498                           
-   499                           ;newmain.c: 119:     BRGCON1 = 0x01;
-   500  00025E  0E01               	movlw	1
-   501  000260  6F43               	movwf	67,b	;volatile
-   502                           
-   503                           ;newmain.c: 120:     BRGCON2 = 0x98;
-   504  000262  0E98               	movlw	152
-   505  000264  6F44               	movwf	68,b	;volatile
-   506                           
-   507                           ;newmain.c: 121:     BRGCON3 = 0x01;
-   508  000266  0E01               	movlw	1
-   509  000268  6F45               	movwf	69,b	;volatile
-   510                           
-   511                           ;newmain.c: 123:     ECANCONbits.MDSEL = 0b00;
-   512  00026A  0E3F               	movlw	-193
-   513  00026C  1672               	andwf	114,f,c	;volatile
-   514                           
-   515                           ;newmain.c: 124:     CANCONbits.REQOP = 0b011;
-   516  00026E  506F               	movf	111,w,c	;volatile
-   517  000270  0B1F               	andlw	-225
-   518  000272  0960               	iorlw	96
-   519  000274  6E6F               	movwf	111,c	;volatile
-   520  000276                     l818:
-   521  000276  386E               	swapf	110,w,c	;volatile
-   522  000278  32E8               	rrcf	wreg,f,c
-   523  00027A  0B07               	andlw	7
-   524  00027C  0A03               	xorlw	3
-   525  00027E  A4D8               	btfss	status,2,c
-   526  000280  EF44  F001         	goto	u21
-   527  000284  EF46  F001         	goto	u20
-   528  000288                     u21:
-   529  000288  EF3B  F001         	goto	l818
-   530  00028C                     u20:
-   531  00028C  0012               	return		;funcret
-   532  00028E                     __end_of_can_init:
-   533                           	callstack 0
-   534                           
-   535 ;; *************** function _myISR *****************
-   536 ;; Defined at:
-   537 ;;		line 228 in file "newmain.c"
-   538 ;; Parameters:    Size  Location     Type
-   539 ;;		None
-   540 ;; Auto vars:     Size  Location     Type
-   541 ;;		None
-   542 ;; Return value:  Size  Location     Type
-   543 ;;                  1    wreg      void 
-   544 ;; Registers used:
-   545 ;;		wreg, status,2, status,0
-   546 ;; Tracked objects:
-   547 ;;		On entry : 0/0
-   548 ;;		On exit  : 0/0
-   549 ;;		Unchanged: 0/0
-   550 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
+   410 ;;Total ram usage:        0 bytes
+   411 ;; Hardware stack levels used: 1
+   412 ;; Hardware stack levels required when called: 1
+   413 ;; This function calls:
+   414 ;;		Nothing
+   415 ;; This function is called by:
+   416 ;;		_main
+   417 ;; This function uses a non-reentrant model
+   418 ;;
+   419                           
+   420                           	psect	text1
+   421  000260                     __ptext1:
+   422                           	callstack 0
+   423  000260                     _can_init:
+   424                           	callstack 29
+   425  000260                     
+   426                           ;newmain.c: 100:     TRISBbits.TRISB2 = 0;
+   427  000260  9493               	bcf	147,2,c	;volatile
+   428                           
+   429                           ;newmain.c: 101:     TRISBbits.TRISB3 = 1;
+   430  000262  8693               	bsf	147,3,c	;volatile
+   431  000264                     
+   432                           ;newmain.c: 103:     CANCONbits.REQOP = 0b100;
+   433  000264  506F               	movf	111,w,c	;volatile
+   434  000266  0B1F               	andlw	-225
+   435  000268  0980               	iorlw	128
+   436  00026A  6E6F               	movwf	111,c	;volatile
+   437  00026C                     l822:
+   438  00026C  506E               	movf	110,w,c	;volatile
+   439  00026E  0BE0               	andlw	224
+   440  000270  0A80               	xorlw	128
+   441  000272  A4D8               	btfss	status,2,c
+   442  000274  EF3E  F001         	goto	u11
+   443  000278  EF40  F001         	goto	u10
+   444  00027C                     u11:
+   445  00027C  EF36  F001         	goto	l822
+   446  000280                     u10:
+   447  000280                     
+   448                           ;newmain.c: 105:     ECANCON = 0x00;
+   449  000280  0E00               	movlw	0
+   450  000282  6E72               	movwf	114,c	;volatile
+   451                           
+   452                           ;newmain.c: 106:     RXM0EIDH = 0x00;
+   453  000284  0E00               	movlw	0
+   454  000286  010E               	movlb	14	; () banked
+   455  000288  6FFA               	movwf	250,b	;volatile
+   456                           
+   457                           ;newmain.c: 107:     RXM0EIDL = 0x00;
+   458  00028A  0E00               	movlw	0
+   459  00028C  6FFB               	movwf	251,b	;volatile
+   460                           
+   461                           ;newmain.c: 108:     RXM0SIDH = 0x00;
+   462  00028E  0E00               	movlw	0
+   463  000290  6FF8               	movwf	248,b	;volatile
+   464                           
+   465                           ;newmain.c: 109:     RXM0SIDL = 0x00;
+   466  000292  0E00               	movlw	0
+   467  000294  6FF9               	movwf	249,b	;volatile
+   468                           
+   469                           ;newmain.c: 110:     RXM1EIDH = 0x00;
+   470  000296  0E00               	movlw	0
+   471  000298  6FFE               	movwf	254,b	;volatile
+   472                           
+   473                           ;newmain.c: 111:     RXM1EIDL = 0x00;
+   474  00029A  0E00               	movlw	0
+   475  00029C  6FFF               	movwf	255,b	;volatile
+   476                           
+   477                           ;newmain.c: 112:     RXM1SIDH = 0x00;
+   478  00029E  0E00               	movlw	0
+   479  0002A0  6FFC               	movwf	252,b	;volatile
+   480                           
+   481                           ;newmain.c: 113:     RXM1SIDL = 0x00;
+   482  0002A2  0E00               	movlw	0
+   483  0002A4  6FFD               	movwf	253,b	;volatile
+   484                           
+   485                           ;newmain.c: 114:     RXF0EIDH = 0x00;
+   486  0002A6  0E00               	movlw	0
+   487  0002A8  6FE2               	movwf	226,b	;volatile
+   488                           
+   489                           ;newmain.c: 115:     RXF0EIDL = 0x00;
+   490  0002AA  0E00               	movlw	0
+   491  0002AC  6FE3               	movwf	227,b	;volatile
+   492                           
+   493                           ;newmain.c: 116:     RXF0SIDH = 0x00;
+   494  0002AE  0E00               	movlw	0
+   495  0002B0  6FE0               	movwf	224,b	;volatile
+   496                           
+   497                           ;newmain.c: 117:     RXF0SIDL = 0x00;
+   498  0002B2  0E00               	movlw	0
+   499  0002B4  6FE1               	movwf	225,b	;volatile
+   500                           
+   501                           ;newmain.c: 118:     RXF1EIDH = 0x00;
+   502  0002B6  0E00               	movlw	0
+   503  0002B8  6FE6               	movwf	230,b	;volatile
+   504                           
+   505                           ;newmain.c: 119:     RXF1EIDL = 0x00;
+   506  0002BA  0E00               	movlw	0
+   507  0002BC  6FE7               	movwf	231,b	;volatile
+   508                           
+   509                           ;newmain.c: 120:     RXF1SIDH = 0x00;
+   510  0002BE  0E00               	movlw	0
+   511  0002C0  6FE4               	movwf	228,b	;volatile
+   512                           
+   513                           ;newmain.c: 121:     RXF1SIDL = 0x00;
+   514  0002C2  0E00               	movlw	0
+   515  0002C4  6FE5               	movwf	229,b	;volatile
+   516                           
+   517                           ;newmain.c: 124:     BRGCON1 = 0x01;
+   518  0002C6  0E01               	movlw	1
+   519  0002C8  6F43               	movwf	67,b	;volatile
+   520                           
+   521                           ;newmain.c: 125:     BRGCON2 = 0x98;
+   522  0002CA  0E98               	movlw	152
+   523  0002CC  6F44               	movwf	68,b	;volatile
+   524                           
+   525                           ;newmain.c: 126:     BRGCON3 = 0x01;
+   526  0002CE  0E01               	movlw	1
+   527  0002D0  6F45               	movwf	69,b	;volatile
+   528                           
+   529                           ;newmain.c: 128:     ECANCONbits.MDSEL = 0b00;
+   530  0002D2  0E3F               	movlw	-193
+   531  0002D4  1672               	andwf	114,f,c	;volatile
+   532                           
+   533                           ;newmain.c: 129:     CANCONbits.REQOP = 0b011;
+   534  0002D6  506F               	movf	111,w,c	;volatile
+   535  0002D8  0B1F               	andlw	-225
+   536  0002DA  0960               	iorlw	96
+   537  0002DC  6E6F               	movwf	111,c	;volatile
+   538  0002DE                     l826:
+   539  0002DE  386E               	swapf	110,w,c	;volatile
+   540  0002E0  32E8               	rrcf	wreg,f,c
+   541  0002E2  0B07               	andlw	7
+   542  0002E4  0A03               	xorlw	3
+   543  0002E6  A4D8               	btfss	status,2,c
+   544  0002E8  EF78  F001         	goto	u21
+   545  0002EC  EF7A  F001         	goto	u20
+   546  0002F0                     u21:
+   547  0002F0  EF6F  F001         	goto	l826
+   548  0002F4                     u20:
+   549  0002F4  0012               	return		;funcret
+   550  0002F6                     __end_of_can_init:
+   551                           	callstack 0
+   552                           
+   553 ;; *************** function _myISR *****************
+   554 ;; Defined at:
+   555 ;;		line 235 in file "newmain.c"
+   556 ;; Parameters:    Size  Location     Type
+   557 ;;		None
+   558 ;; Auto vars:     Size  Location     Type
+   559 ;;		None
+   560 ;; Return value:  Size  Location     Type
+   561 ;;                  1    wreg      void 
+   562 ;; Registers used:
+   563 ;;		wreg, status,2, status,0
+   564 ;; Tracked objects:
+   565 ;;		On entry : 0/0
+   566 ;;		On exit  : 0/0
+   567 ;;		Unchanged: 0/0
+   568 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK1
       +1  BANK12  BANK13  BANK14
-   551 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
+   569 ;;      Params:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   552 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   570 ;;      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   553 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
+   571 ;;      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   554 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
+   572 ;;      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       
       +0       0       0       0
-   555 ;;Total ram usage:        0 bytes
-   556 ;; Hardware stack levels used:    1
-   557 ;; This function calls:
-   558 ;;		Nothing
-   559 ;; This function is called by:
-   560 ;;		Interrupt level 2
-   561 ;; This function uses a non-reentrant model
-   562 ;;
-   563                           
-   564                           	psect	intcode
-   565  000008                     __pintcode:
-   566                           	callstack 0
-   567  000008                     _myISR:
-   568                           	callstack 29
-   569                           
-   570                           ;incstack = 0
-   571  000008  8217               	bsf	int$flags,1,c	;set compiler interrupt flag (level 2)
-   572  00000A                     
-   573                           ;newmain.c: 231:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
-   574  00000A  A077               	btfss	119,0,c	;volatile
-   575  00000C  EF0A  F000         	goto	i2u10_41
-   576  000010  EF0C  F000         	goto	i2u10_40
-   577  000014                     i2u10_41:
-   578  000014  EF2E  F000         	goto	i2l860
-   579  000018                     i2u10_40:
-   580  000018  A076               	btfss	118,0,c	;volatile
-   581  00001A  EF11  F000         	goto	i2u11_41
-   582  00001E  EF13  F000         	goto	i2u11_40
-   583  000022                     i2u11_41:
-   584  000022  EF2E  F000         	goto	i2l860
-   585  000026                     i2u11_40:
-   586  000026                     
-   587                           ;newmain.c: 232:   {;newmain.c: 233:   PIR5bits.RXB0IF = 0;
-   588  000026  9077               	bcf	119,0,c	;volatile
-   589                           
-   590                           ;newmain.c: 235:   can_rxbuff.d0 = RXB0D0;
-   591  000028  CF66 F006          	movff	3942,_can_rxbuff+5	;volatile
-   592                           
-   593                           ;newmain.c: 236:   can_rxbuff.d1 = RXB0D1;
-   594  00002C  CF67 F007          	movff	3943,_can_rxbuff+6	;volatile
-   595                           
-   596                           ;newmain.c: 237:   can_rxbuff.d2 = RXB0D2;
-   597  000030  CF68 F008          	movff	3944,_can_rxbuff+7	;volatile
-   598                           
-   599                           ;newmain.c: 238:   can_rxbuff.d3 = RXB0D3;
-   600  000034  CF69 F009          	movff	3945,_can_rxbuff+8	;volatile
-   601                           
-   602                           ;newmain.c: 239:         can_rxbuff.d4 = RXB0D4;
-   603  000038  CF6A F00A          	movff	3946,_can_rxbuff+9	;volatile
-   604                           
-   605                           ;newmain.c: 240:         can_rxbuff.d5 = RXB0D5;
-   606  00003C  CF6B F00B          	movff	3947,_can_rxbuff+10	;volatile
+   573 ;;Total ram usage:        0 bytes
+   574 ;; Hardware stack levels used: 1
+   575 ;; This function calls:
+   576 ;;		Nothing
+   577 ;; This function is called by:
+   578 ;;		Interrupt level 2
+   579 ;; This function uses a non-reentrant model
+   580 ;;
+   581                           
+   582                           	psect	intcode
+   583  000008                     __pintcode:
+   584                           	callstack 0
+   585  000008                     _myISR:
+   586                           	callstack 29
+   587                           
+   588                           ;incstack = 0
+   589  000008  821B               	bsf	int$flags,1,c	;set compiler interrupt flag (level 2)
+   590  00000A                     
+   591                           ;newmain.c: 238:  if (PIR5bits.RXB0IF && PIE5bits.RXB0IE)
+   592  00000A  A077               	btfss	119,0,c	;volatile
+   593  00000C  EF0A  F000         	goto	i2u10_41
+   594  000010  EF0C  F000         	goto	i2u10_40
+   595  000014                     i2u10_41:
+   596  000014  EF2E  F000         	goto	i2l872
+   597  000018                     i2u10_40:
+   598  000018  A076               	btfss	118,0,c	;volatile
+   599  00001A  EF11  F000         	goto	i2u11_41
+   600  00001E  EF13  F000         	goto	i2u11_40
+   601  000022                     i2u11_41:
+   602  000022  EF2E  F000         	goto	i2l872
+   603  000026                     i2u11_40:
+   604  000026                     
+   605                           ;newmain.c: 239:   {;newmain.c: 240:   PIR5bits.RXB0IF = 0;
+   606  000026  9077               	bcf	119,0,c	;volatile
    607                           
-   608                           ;newmain.c: 241:         can_rxbuff.d6 = RXB0D6;
-   609  000040  CF6C F00C          	movff	3948,_can_rxbuff+11	;volatile
+   608                           ;newmain.c: 242:   can_rxbuff.d0 = RXB0D0;
+   609  000028  CF66 F006          	movff	3942,_can_rxbuff+5	;volatile
    610                           
-   611                           ;newmain.c: 242:         can_rxbuff.d7 = RXB0D7;
-   612  000044  CF6D F00D          	movff	3949,_can_rxbuff+12	;volatile
+   611                           ;newmain.c: 243:   can_rxbuff.d1 = RXB0D1;
+   612  00002C  CF67 F007          	movff	3943,_can_rxbuff+6	;volatile
    613                           
-   614                           ;newmain.c: 243:   can_rxbuff.dl = RXB0DLC;
-   615  000048  CF65 F005          	movff	3941,_can_rxbuff+4	;volatile
+   614                           ;newmain.c: 244:   can_rxbuff.d2 = RXB0D2;
+   615  000030  CF68 F008          	movff	3944,_can_rxbuff+7	;volatile
    616                           
-   617                           ;newmain.c: 244:         can_rxbuff.idh = RXB0SIDH;
-   618  00004C  CF61 F001          	movff	3937,_can_rxbuff	;volatile
-   619  000050                     
-   620                           ;newmain.c: 245:         can_rxbuff.idl = (RXB0SIDL&0xe0);
-   621  000050  5062               	movf	98,w,c	;volatile
-   622  000052  0BE0               	andlw	224
-   623  000054  6E02               	movwf	(_can_rxbuff+1)^0,c
-   624  000056                     
-   625                           ;newmain.c: 246:         canMessageFlag = 1;
-   626  000056  0E01               	movlw	1
-   627  000058  6E14               	movwf	_canMessageFlag^0,c
-   628  00005A                     
-   629                           ;newmain.c: 248:         RXB0CONbits.RXFUL = 0;
-   630  00005A  9E60               	bcf	96,7,c	;volatile
-   631  00005C                     i2l860:
-   632                           
-   633                           ;newmain.c: 250:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
-   634  00005C  AAF2               	btfss	242,5,c	;volatile
-   635  00005E  EF33  F000         	goto	i2u12_41
-   636  000062  EF35  F000         	goto	i2u12_40
-   637  000066                     i2u12_41:
-   638  000066  EF79  F000         	goto	i2l134
-   639  00006A                     i2u12_40:
-   640  00006A  A4F2               	btfss	242,2,c	;volatile
-   641  00006C  EF3A  F000         	goto	i2u13_41
-   642  000070  EF3C  F000         	goto	i2u13_40
-   643  000074                     i2u13_41:
-   644  000074  EF79  F000         	goto	i2l134
-   645  000078                     i2u13_40:
-   646  000078                     
-   647                           ;newmain.c: 251:     {;newmain.c: 252:         ledtimer++;
-   648  000078  4A12               	infsnz	_ledtimer^0,f,c
-   649  00007A  2A13               	incf	(_ledtimer+1)^0,f,c
-   650  00007C                     
-   651                           ;newmain.c: 253:         if(ledtimer > 500)
-   652  00007C  0EF5               	movlw	245
-   653  00007E  5C12               	subwf	_ledtimer^0,w,c
-   654  000080  0E01               	movlw	1
-   655  000082  5813               	subwfb	(_ledtimer+1)^0,w,c
-   656  000084  A0D8               	btfss	status,0,c
-   657  000086  EF47  F000         	goto	i2u14_41
-   658  00008A  EF49  F000         	goto	i2u14_40
-   659  00008E                     i2u14_41:
-   660  00008E  EF4E  F000         	goto	i2l872
-   661  000092                     i2u14_40:
-   662  000092                     
-   663                           ;newmain.c: 254:         {;newmain.c: 255:             LATBbits.LATB7 ^= 1;
-   664  000092  7E8A               	btg	138,7,c	;volatile
-   665  000094                     
-   666                           ;newmain.c: 258:             ledtimer = 0;
-   667  000094  0E00               	movlw	0
-   668  000096  6E13               	movwf	(_ledtimer+1)^0,c
-   669  000098  0E00               	movlw	0
-   670  00009A  6E12               	movwf	_ledtimer^0,c
-   671  00009C                     i2l872:
-   672                           
-   673                           ;newmain.c: 260:         if(ledHighTimer > 0)
-   674  00009C  5010               	movf	_ledHighTimer^0,w,c
-   675  00009E  1011               	iorwf	(_ledHighTimer+1)^0,w,c
-   676  0000A0  B4D8               	btfsc	status,2,c
-   677  0000A2  EF55  F000         	goto	i2u15_41
-   678  0000A6  EF57  F000         	goto	i2u15_40
-   679  0000AA                     i2u15_41:
-   680  0000AA  EF68  F000         	goto	i2l882
-   681  0000AE                     i2u15_40:
-   682  0000AE                     
-   683                           ;newmain.c: 261:         {;newmain.c: 262:             ledHighTimer--;
-   684  0000AE  0610               	decf	_ledHighTimer^0,f,c
-   685  0000B0  A0D8               	btfss	status,0,c
-   686  0000B2  0611               	decf	(_ledHighTimer+1)^0,f,c
-   687  0000B4                     
-   688                           ;newmain.c: 263:             if(ledHighTimer == 0)
-   689  0000B4  5010               	movf	_ledHighTimer^0,w,c
-   690  0000B6  1011               	iorwf	(_ledHighTimer+1)^0,w,c
-   691  0000B8  A4D8               	btfss	status,2,c
-   692  0000BA  EF61  F000         	goto	i2u16_41
-   693  0000BE  EF63  F000         	goto	i2u16_40
-   694  0000C2                     i2u16_41:
-   695  0000C2  EF68  F000         	goto	i2l882
-   696  0000C6                     i2u16_40:
-   697  0000C6                     
-   698                           ;newmain.c: 264:             {;newmain.c: 265:                 ledLowTimer = 500;
-   699  0000C6  0E01               	movlw	1
-   700  0000C8  6E0F               	movwf	(_ledLowTimer+1)^0,c
-   701  0000CA  0EF4               	movlw	244
-   702  0000CC  6E0E               	movwf	_ledLowTimer^0,c
-   703  0000CE                     
-   704                           ;newmain.c: 266:                 LATBbits.LATB5 = 1;
-   705  0000CE  8A8A               	bsf	138,5,c	;volatile
-   706  0000D0                     i2l882:
-   707                           
-   708                           ;newmain.c: 269:         if(ledLowTimer > 0)
-   709  0000D0  500E               	movf	_ledLowTimer^0,w,c
-   710  0000D2  100F               	iorwf	(_ledLowTimer+1)^0,w,c
-   711  0000D4  B4D8               	btfsc	status,2,c
-   712  0000D6  EF6F  F000         	goto	i2u17_41
-   713  0000DA  EF71  F000         	goto	i2u17_40
-   714  0000DE                     i2u17_41:
-   715  0000DE  EF74  F000         	goto	i2l886
-   716  0000E2                     i2u17_40:
-   717  0000E2                     
-   718                           ;newmain.c: 270:         {;newmain.c: 271:             ledLowTimer--;
-   719  0000E2  060E               	decf	_ledLowTimer^0,f,c
-   720  0000E4  A0D8               	btfss	status,0,c
-   721  0000E6  060F               	decf	(_ledLowTimer+1)^0,f,c
-   722  0000E8                     i2l886:
-   723                           
-   724                           ;newmain.c: 274:         TMR0H = 0xf8;
-   725  0000E8  0EF8               	movlw	248
-   726  0000EA  6ED7               	movwf	215,c	;volatile
-   727  0000EC                     
-   728                           ;newmain.c: 275:         TMR0L = 0x2F;
-   729  0000EC  0E2F               	movlw	47
-   730  0000EE  6ED6               	movwf	214,c	;volatile
-   731  0000F0                     
-   732                           ;newmain.c: 276:         INTCONbits.TMR0IF = 0;
-   733  0000F0  94F2               	bcf	242,2,c	;volatile
-   734  0000F2                     i2l134:
-   735  0000F2  9217               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
-   736  0000F4  0011               	retfie		f
-   737  0000F6                     __end_of_myISR:
-   738                           	callstack 0
-   739  0000                     
-   740                           	psect	rparam
-   741  0000                     
-   742                           	psect	temp
-   743  000017                     btemp:
-   744                           	callstack 0
-   745  000017                     	ds	1
-   746  0000                     int$flags	set	btemp
-   747  0000                     wtemp8	set	btemp+1
-   748  0000                     ttemp5	set	btemp+1
-   749  0000                     ttemp6	set	btemp+4
-   750  0000                     ttemp7	set	btemp+8
-   751                           
-   752                           	psect	idloc
-   753                           
-   754                           ;Config register IDLOC0 @ 0x200000
-   755                           ;	unspecified, using default values
-   756  200000                     	org	2097152
-   757  200000  FF                 	db	255
-   758                           
-   759                           ;Config register IDLOC1 @ 0x200001
-   760                           ;	unspecified, using default values
-   761  200001                     	org	2097153
-   762  200001  FF                 	db	255
-   763                           
-   764                           ;Config register IDLOC2 @ 0x200002
-   765                           ;	unspecified, using default values
-   766  200002                     	org	2097154
-   767  200002  FF                 	db	255
-   768                           
-   769                           ;Config register IDLOC3 @ 0x200003
-   770                           ;	unspecified, using default values
-   771  200003                     	org	2097155
-   772  200003  FF                 	db	255
-   773                           
-   774                           ;Config register IDLOC4 @ 0x200004
-   775                           ;	unspecified, using default values
-   776  200004                     	org	2097156
-   777  200004  FF                 	db	255
-   778                           
-   779                           ;Config register IDLOC5 @ 0x200005
-   780                           ;	unspecified, using default values
-   781  200005                     	org	2097157
-   782  200005  FF                 	db	255
-   783                           
-   784                           ;Config register IDLOC6 @ 0x200006
-   785                           ;	unspecified, using default values
-   786  200006                     	org	2097158
-   787  200006  FF                 	db	255
-   788                           
-   789                           ;Config register IDLOC7 @ 0x200007
-   790                           ;	unspecified, using default values
-   791  200007                     	org	2097159
-   792  200007  FF                 	db	255
-   793                           
-   794                           	psect	config
-   795                           
-   796                           ;Config register CONFIG1L @ 0x300000
-   797                           ;	VREG Sleep Enable bit
-   798                           ;	RETEN = OFF, Ultra low-power regulator is Disabled (Controlled by REGSLP bit)
-   799                           ;	LF-INTOSC Low-power Enable bit
-   800                           ;	INTOSCSEL = HIGH, LF-INTOSC in High-power mode during Sleep
-   801                           ;	SOSC Power Selection and mode Configuration bits
-   802                           ;	SOSCSEL = DIG, Digital (SCLKI) mode
-   803                           ;	Extended Instruction Set
-   804                           ;	XINST = OFF, Disabled
-   805  300000                     	org	3145728
-   806  300000  15                 	db	21
-   807                           
-   808                           ;Config register CONFIG1H @ 0x300001
-   809                           ;	Oscillator
-   810                           ;	FOSC = HS1, HS oscillator (Medium power, 4 MHz - 16 MHz)
-   811                           ;	PLL x4 Enable bit
-   812                           ;	PLLCFG = ON, Enabled
-   813                           ;	Fail-Safe Clock Monitor
-   814                           ;	FCMEN = ON, Enabled
-   815                           ;	Internal External Oscillator Switch Over Mode
-   816                           ;	IESO = ON, Enabled
-   817  300001                     	org	3145729
-   818  300001  D3                 	db	211
-   819                           
-   820                           ;Config register CONFIG2L @ 0x300002
-   821                           ;	Power Up Timer
-   822                           ;	PWRTEN = ON, Enabled
-   823                           ;	Brown Out Detect
-   824                           ;	BOREN = SBORDIS, Enabled in hardware, SBOREN disabled
-   825                           ;	Brown-out Reset Voltage bits
-   826                           ;	BORV = 3, 1.8V
-   827                           ;	BORMV Power level
-   828                           ;	BORPWR = ZPBORMV, ZPBORMV instead of BORMV is selected
-   829  300002                     	org	3145730
-   830  300002  7E                 	db	126
-   831                           
-   832                           ;Config register CONFIG2H @ 0x300003
-   833                           ;	Watchdog Timer
-   834                           ;	WDTEN = SWDTDIS, WDT enabled in hardware; SWDTEN bit disabled
-   835                           ;	Watchdog Postscaler
-   836                           ;	WDTPS = 1048576, 1:1048576
-   837  300003                     	org	3145731
-   838  300003  7F                 	db	127
+   617                           ;newmain.c: 245:   can_rxbuff.d3 = RXB0D3;
+   618  000034  CF69 F009          	movff	3945,_can_rxbuff+8	;volatile
+   619                           
+   620                           ;newmain.c: 246:         can_rxbuff.d4 = RXB0D4;
+   621  000038  CF6A F00A          	movff	3946,_can_rxbuff+9	;volatile
+   622                           
+   623                           ;newmain.c: 247:         can_rxbuff.d5 = RXB0D5;
+   624  00003C  CF6B F00B          	movff	3947,_can_rxbuff+10	;volatile
+   625                           
+   626                           ;newmain.c: 248:         can_rxbuff.d6 = RXB0D6;
+   627  000040  CF6C F00C          	movff	3948,_can_rxbuff+11	;volatile
+   628                           
+   629                           ;newmain.c: 249:         can_rxbuff.d7 = RXB0D7;
+   630  000044  CF6D F00D          	movff	3949,_can_rxbuff+12	;volatile
+   631                           
+   632                           ;newmain.c: 250:   can_rxbuff.dl = RXB0DLC;
+   633  000048  CF65 F005          	movff	3941,_can_rxbuff+4	;volatile
+   634                           
+   635                           ;newmain.c: 251:         can_rxbuff.idh = RXB0SIDH;
+   636  00004C  CF61 F001          	movff	3937,_can_rxbuff	;volatile
+   637  000050                     
+   638                           ;newmain.c: 252:         can_rxbuff.idl = (RXB0SIDL&0xe0);
+   639  000050  5062               	movf	98,w,c	;volatile
+   640  000052  0BE0               	andlw	224
+   641  000054  6E02               	movwf	(_can_rxbuff+1)^0,c
+   642  000056                     
+   643                           ;newmain.c: 253:         canMessageFlag = 1;
+   644  000056  0E01               	movlw	1
+   645  000058  6E18               	movwf	_canMessageFlag^0,c
+   646  00005A                     
+   647                           ;newmain.c: 255:         RXB0CONbits.RXFUL = 0;
+   648  00005A  9E60               	bcf	96,7,c	;volatile
+   649  00005C                     i2l872:
+   650                           
+   651                           ;newmain.c: 257:     if(INTCONbits.T0IE && INTCONbits.TMR0IF)
+   652  00005C  AAF2               	btfss	242,5,c	;volatile
+   653  00005E  EF33  F000         	goto	i2u12_41
+   654  000062  EF35  F000         	goto	i2u12_40
+   655  000066                     i2u12_41:
+   656  000066  EFA5  F000         	goto	i2l142
+   657  00006A                     i2u12_40:
+   658  00006A  A4F2               	btfss	242,2,c	;volatile
+   659  00006C  EF3A  F000         	goto	i2u13_41
+   660  000070  EF3C  F000         	goto	i2u13_40
+   661  000074                     i2u13_41:
+   662  000074  EFA5  F000         	goto	i2l142
+   663  000078                     i2u13_40:
+   664  000078                     
+   665                           ;newmain.c: 258:     {;newmain.c: 259:         ledtimer++;
+   666  000078  4A16               	infsnz	_ledtimer^0,f,c
+   667  00007A  2A17               	incf	(_ledtimer+1)^0,f,c
+   668  00007C                     
+   669                           ;newmain.c: 260:         if(ledtimer > 500)
+   670  00007C  0EF5               	movlw	245
+   671  00007E  5C16               	subwf	_ledtimer^0,w,c
+   672  000080  0E01               	movlw	1
+   673  000082  5817               	subwfb	(_ledtimer+1)^0,w,c
+   674  000084  A0D8               	btfss	status,0,c
+   675  000086  EF47  F000         	goto	i2u14_41
+   676  00008A  EF49  F000         	goto	i2u14_40
+   677  00008E                     i2u14_41:
+   678  00008E  EF4E  F000         	goto	i2l884
+   679  000092                     i2u14_40:
+   680  000092                     
+   681                           ;newmain.c: 261:         {;newmain.c: 262:             LATBbits.LATB7 ^= 1;
+   682  000092  7E8A               	btg	138,7,c	;volatile
+   683  000094                     
+   684                           ;newmain.c: 265:             ledtimer = 0;
+   685  000094  0E00               	movlw	0
+   686  000096  6E17               	movwf	(_ledtimer+1)^0,c
+   687  000098  0E00               	movlw	0
+   688  00009A  6E16               	movwf	_ledtimer^0,c
+   689  00009C                     i2l884:
+   690                           
+   691                           ;newmain.c: 267:         if(ledHighTimer > 0)
+   692  00009C  5014               	movf	_ledHighTimer^0,w,c
+   693  00009E  1015               	iorwf	(_ledHighTimer+1)^0,w,c
+   694  0000A0  B4D8               	btfsc	status,2,c
+   695  0000A2  EF55  F000         	goto	i2u15_41
+   696  0000A6  EF57  F000         	goto	i2u15_40
+   697  0000AA                     i2u15_41:
+   698  0000AA  EF68  F000         	goto	i2l894
+   699  0000AE                     i2u15_40:
+   700  0000AE                     
+   701                           ;newmain.c: 268:         {;newmain.c: 269:             ledHighTimer--;
+   702  0000AE  0614               	decf	_ledHighTimer^0,f,c
+   703  0000B0  A0D8               	btfss	status,0,c
+   704  0000B2  0615               	decf	(_ledHighTimer+1)^0,f,c
+   705  0000B4                     
+   706                           ;newmain.c: 270:             if(ledHighTimer == 0)
+   707  0000B4  5014               	movf	_ledHighTimer^0,w,c
+   708  0000B6  1015               	iorwf	(_ledHighTimer+1)^0,w,c
+   709  0000B8  A4D8               	btfss	status,2,c
+   710  0000BA  EF61  F000         	goto	i2u16_41
+   711  0000BE  EF63  F000         	goto	i2u16_40
+   712  0000C2                     i2u16_41:
+   713  0000C2  EF68  F000         	goto	i2l894
+   714  0000C6                     i2u16_40:
+   715  0000C6                     
+   716                           ;newmain.c: 271:             {;newmain.c: 272:                 ledLowTimer = 500;
+   717  0000C6  0E01               	movlw	1
+   718  0000C8  6E13               	movwf	(_ledLowTimer+1)^0,c
+   719  0000CA  0EF4               	movlw	244
+   720  0000CC  6E12               	movwf	_ledLowTimer^0,c
+   721  0000CE                     
+   722                           ;newmain.c: 273:                 LATBbits.LATB4 = 1;
+   723  0000CE  888A               	bsf	138,4,c	;volatile
+   724  0000D0                     i2l894:
+   725                           
+   726                           ;newmain.c: 276:         if(ledLowTimer > 0)
+   727  0000D0  5012               	movf	_ledLowTimer^0,w,c
+   728  0000D2  1013               	iorwf	(_ledLowTimer+1)^0,w,c
+   729  0000D4  B4D8               	btfsc	status,2,c
+   730  0000D6  EF6F  F000         	goto	i2u17_41
+   731  0000DA  EF71  F000         	goto	i2u17_40
+   732  0000DE                     i2u17_41:
+   733  0000DE  EF74  F000         	goto	i2l898
+   734  0000E2                     i2u17_40:
+   735  0000E2                     
+   736                           ;newmain.c: 277:         {;newmain.c: 278:             ledLowTimer--;
+   737  0000E2  0612               	decf	_ledLowTimer^0,f,c
+   738  0000E4  A0D8               	btfss	status,0,c
+   739  0000E6  0613               	decf	(_ledLowTimer+1)^0,f,c
+   740  0000E8                     i2l898:
+   741                           
+   742                           ;newmain.c: 282:         if(brakeTimer > 0)
+   743  0000E8  500E               	movf	_brakeTimer^0,w,c
+   744  0000EA  100F               	iorwf	(_brakeTimer+1)^0,w,c
+   745  0000EC  B4D8               	btfsc	status,2,c
+   746  0000EE  EF7B  F000         	goto	i2u18_41
+   747  0000F2  EF7D  F000         	goto	i2u18_40
+   748  0000F6                     i2u18_41:
+   749  0000F6  EF8A  F000         	goto	i2l906
+   750  0000FA                     i2u18_40:
+   751  0000FA                     
+   752                           ;newmain.c: 283:         {;newmain.c: 284:             brakeTimer--;
+   753  0000FA  060E               	decf	_brakeTimer^0,f,c
+   754  0000FC  A0D8               	btfss	status,0,c
+   755  0000FE  060F               	decf	(_brakeTimer+1)^0,f,c
+   756  000100                     
+   757                           ;newmain.c: 285:             if(brakeTimer == 0)
+   758  000100  500E               	movf	_brakeTimer^0,w,c
+   759  000102  100F               	iorwf	(_brakeTimer+1)^0,w,c
+   760  000104  A4D8               	btfss	status,2,c
+   761  000106  EF87  F000         	goto	i2u19_41
+   762  00010A  EF89  F000         	goto	i2u19_40
+   763  00010E                     i2u19_41:
+   764  00010E  EF8A  F000         	goto	i2l906
+   765  000112                     i2u19_40:
+   766  000112                     
+   767                           ;newmain.c: 286:             {;newmain.c: 287:                 LATBbits.LATB6 = 1;
+   768  000112  8C8A               	bsf	138,6,c	;volatile
+   769  000114                     i2l906:
+   770                           
+   771                           ;newmain.c: 290:         if(ignTimer > 0)
+   772  000114  5010               	movf	_ignTimer^0,w,c
+   773  000116  1011               	iorwf	(_ignTimer+1)^0,w,c
+   774  000118  B4D8               	btfsc	status,2,c
+   775  00011A  EF91  F000         	goto	i2u20_41
+   776  00011E  EF93  F000         	goto	i2u20_40
+   777  000122                     i2u20_41:
+   778  000122  EFA0  F000         	goto	i2l914
+   779  000126                     i2u20_40:
+   780  000126                     
+   781                           ;newmain.c: 291:         {;newmain.c: 292:             ignTimer--;
+   782  000126  0610               	decf	_ignTimer^0,f,c
+   783  000128  A0D8               	btfss	status,0,c
+   784  00012A  0611               	decf	(_ignTimer+1)^0,f,c
+   785  00012C                     
+   786                           ;newmain.c: 293:             if(ignTimer == 0)
+   787  00012C  5010               	movf	_ignTimer^0,w,c
+   788  00012E  1011               	iorwf	(_ignTimer+1)^0,w,c
+   789  000130  A4D8               	btfss	status,2,c
+   790  000132  EF9D  F000         	goto	i2u21_41
+   791  000136  EF9F  F000         	goto	i2u21_40
+   792  00013A                     i2u21_41:
+   793  00013A  EFA0  F000         	goto	i2l914
+   794  00013E                     i2u21_40:
+   795  00013E                     
+   796                           ;newmain.c: 294:             {;newmain.c: 295:                 LATBbits.LATB5 = 1;
+   797  00013E  8A8A               	bsf	138,5,c	;volatile
+   798  000140                     i2l914:
+   799                           
+   800                           ;newmain.c: 298:         TMR0H = 0xf8;
+   801  000140  0EF8               	movlw	248
+   802  000142  6ED7               	movwf	215,c	;volatile
+   803                           
+   804                           ;newmain.c: 299:         TMR0L = 0x2F;
+   805  000144  0E2F               	movlw	47
+   806  000146  6ED6               	movwf	214,c	;volatile
+   807  000148                     
+   808                           ;newmain.c: 300:         INTCONbits.TMR0IF = 0;
+   809  000148  94F2               	bcf	242,2,c	;volatile
+   810  00014A                     i2l142:
+   811  00014A  921B               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+   812  00014C  0011               	retfie		f
+   813  00014E                     __end_of_myISR:
+   814                           	callstack 0
+   815  0000                     
+   816                           	psect	rparam
+   817  0000                     
+   818                           	psect	temp
+   819  00001B                     btemp:
+   820                           	callstack 0
+   821  00001B                     	ds	1
+   822  0000                     int$flags	set	btemp
+   823  0000                     wtemp8	set	btemp+1
+   824  0000                     ttemp5	set	btemp+1
+   825  0000                     ttemp6	set	btemp+4
+   826  0000                     ttemp7	set	btemp+8
+   827                           
+   828                           	psect	idloc
+   829                           
+   830                           ;Config register IDLOC0 @ 0x200000
+   831                           ;	unspecified, using default values
+   832  200000                     	org	2097152
+   833  200000  FF                 	db	255
+   834                           
+   835                           ;Config register IDLOC1 @ 0x200001
+   836                           ;	unspecified, using default values
+   837  200001                     	org	2097153
+   838  200001  FF                 	db	255
    839                           
-   840                           ; Padding undefined space
-   841  300004                     	org	3145732
-   842  300004  FF                 	db	255
-   843                           
-   844                           ;Config register CONFIG3H @ 0x300005
-   845                           ;	ECAN Mux bit
-   846                           ;	CANMX = PORTB, ECAN TX and RX pins are located on RB2 and RB3, respectively
-   847                           ;	MSSP address masking
-   848                           ;	MSSPMSK = MSK7, 7 Bit address masking mode
-   849                           ;	Master Clear Enable
-   850                           ;	MCLRE = ON, MCLR Enabled, RE3 Disabled
-   851  300005                     	org	3145733
-   852  300005  89                 	db	137
-   853                           
-   854                           ;Config register CONFIG4L @ 0x300006
-   855                           ;	Stack Overflow Reset
-   856                           ;	STVREN = ON, Enabled
-   857                           ;	Boot Block Size
-   858                           ;	BBSIZ = BB2K, 2K word Boot Block size
-   859  300006                     	org	3145734
-   860  300006  91                 	db	145
-   861                           
-   862                           ; Padding undefined space
-   863  300007                     	org	3145735
-   864  300007  FF                 	db	255
-   865                           
-   866                           ;Config register CONFIG5L @ 0x300008
-   867                           ;	Code Protect 00800-01FFF
-   868                           ;	CP0 = OFF, Disabled
-   869                           ;	Code Protect 02000-03FFF
-   870                           ;	CP1 = OFF, Disabled
-   871                           ;	Code Protect 04000-05FFF
-   872                           ;	CP2 = OFF, Disabled
-   873                           ;	Code Protect 06000-07FFF
-   874                           ;	CP3 = OFF, Disabled
-   875  300008                     	org	3145736
-   876  300008  0F                 	db	15
-   877                           
-   878                           ;Config register CONFIG5H @ 0x300009
-   879                           ;	Code Protect Boot
-   880                           ;	CPB = OFF, Disabled
-   881                           ;	Data EE Read Protect
-   882                           ;	CPD = OFF, Disabled
-   883  300009                     	org	3145737
-   884  300009  C0                 	db	192
-   885                           
-   886                           ;Config register CONFIG6L @ 0x30000A
-   887                           ;	Table Write Protect 00800-01FFF
-   888                           ;	WRT0 = OFF, Disabled
-   889                           ;	Table Write Protect 02000-03FFF
-   890                           ;	WRT1 = OFF, Disabled
-   891                           ;	Table Write Protect 04000-05FFF
-   892                           ;	WRT2 = OFF, Disabled
-   893                           ;	Table Write Protect 06000-07FFF
-   894                           ;	WRT3 = OFF, Disabled
-   895  30000A                     	org	3145738
-   896  30000A  0F                 	db	15
-   897                           
-   898                           ;Config register CONFIG6H @ 0x30000B
-   899                           ;	Config. Write Protect
-   900                           ;	WRTC = OFF, Disabled
-   901                           ;	Table Write Protect Boot
-   902                           ;	WRTB = OFF, Disabled
-   903                           ;	Data EE Write Protect
-   904                           ;	WRTD = OFF, Disabled
-   905  30000B                     	org	3145739
-   906  30000B  E0                 	db	224
+   840                           ;Config register IDLOC2 @ 0x200002
+   841                           ;	unspecified, using default values
+   842  200002                     	org	2097154
+   843  200002  FF                 	db	255
+   844                           
+   845                           ;Config register IDLOC3 @ 0x200003
+   846                           ;	unspecified, using default values
+   847  200003                     	org	2097155
+   848  200003  FF                 	db	255
+   849                           
+   850                           ;Config register IDLOC4 @ 0x200004
+   851                           ;	unspecified, using default values
+   852  200004                     	org	2097156
+   853  200004  FF                 	db	255
+   854                           
+   855                           ;Config register IDLOC5 @ 0x200005
+   856                           ;	unspecified, using default values
+   857  200005                     	org	2097157
+   858  200005  FF                 	db	255
+   859                           
+   860                           ;Config register IDLOC6 @ 0x200006
+   861                           ;	unspecified, using default values
+   862  200006                     	org	2097158
+   863  200006  FF                 	db	255
+   864                           
+   865                           ;Config register IDLOC7 @ 0x200007
+   866                           ;	unspecified, using default values
+   867  200007                     	org	2097159
+   868  200007  FF                 	db	255
+   869                           
+   870                           	psect	config
+   871                           
+   872                           ;Config register CONFIG1L @ 0x300000
+   873                           ;	VREG Sleep Enable bit
+   874                           ;	RETEN = OFF, Ultra low-power regulator is Disabled (Controlled by REGSLP bit)
+   875                           ;	LF-INTOSC Low-power Enable bit
+   876                           ;	INTOSCSEL = HIGH, LF-INTOSC in High-power mode during Sleep
+   877                           ;	SOSC Power Selection and mode Configuration bits
+   878                           ;	SOSCSEL = DIG, Digital (SCLKI) mode
+   879                           ;	Extended Instruction Set
+   880                           ;	XINST = OFF, Disabled
+   881  300000                     	org	3145728
+   882  300000  15                 	db	21
+   883                           
+   884                           ;Config register CONFIG1H @ 0x300001
+   885                           ;	Oscillator
+   886                           ;	FOSC = HS1, HS oscillator (Medium power, 4 MHz - 16 MHz)
+   887                           ;	PLL x4 Enable bit
+   888                           ;	PLLCFG = ON, Enabled
+   889                           ;	Fail-Safe Clock Monitor
+   890                           ;	FCMEN = ON, Enabled
+   891                           ;	Internal External Oscillator Switch Over Mode
+   892                           ;	IESO = ON, Enabled
+   893  300001                     	org	3145729
+   894  300001  D3                 	db	211
+   895                           
+   896                           ;Config register CONFIG2L @ 0x300002
+   897                           ;	Power Up Timer
+   898                           ;	PWRTEN = ON, Enabled
+   899                           ;	Brown Out Detect
+   900                           ;	BOREN = SBORDIS, Enabled in hardware, SBOREN disabled
+   901                           ;	Brown-out Reset Voltage bits
+   902                           ;	BORV = 3, 1.8V
+   903                           ;	BORMV Power level
+   904                           ;	BORPWR = ZPBORMV, ZPBORMV instead of BORMV is selected
+   905  300002                     	org	3145730
+   906  300002  7E                 	db	126
    907                           
-   908                           ;Config register CONFIG7L @ 0x30000C
-   909                           ;	Table Read Protect 00800-01FFF
-   910                           ;	EBTR0 = OFF, Disabled
-   911                           ;	Table Read Protect 02000-03FFF
-   912                           ;	EBTR1 = OFF, Disabled
-   913                           ;	Table Read Protect 04000-05FFF
-   914                           ;	EBTR2 = OFF, Disabled
-   915                           ;	Table Read Protect 06000-07FFF
-   916                           ;	EBTR3 = OFF, Disabled
-   917  30000C                     	org	3145740
-   918  30000C  0F                 	db	15
+   908                           ;Config register CONFIG2H @ 0x300003
+   909                           ;	Watchdog Timer
+   910                           ;	WDTEN = SWDTDIS, WDT enabled in hardware; SWDTEN bit disabled
+   911                           ;	Watchdog Postscaler
+   912                           ;	WDTPS = 1048576, 1:1048576
+   913  300003                     	org	3145731
+   914  300003  7F                 	db	127
+   915                           
+   916                           ; Padding undefined space
+   917  300004                     	org	3145732
+   918  300004  FF                 	db	255
    919                           
-   920                           ;Config register CONFIG7H @ 0x30000D
-   921                           ;	Table Read Protect Boot
-   922                           ;	EBTRB = OFF, Disabled
-   923  30000D                     	org	3145741
-   924  30000D  40                 	db	64
-   925                           tosu	equ	0xFFF
-   926                           tosh	equ	0xFFE
-   927                           tosl	equ	0xFFD
-   928                           stkptr	equ	0xFFC
-   929                           pclatu	equ	0xFFB
-   930                           pclath	equ	0xFFA
-   931                           pcl	equ	0xFF9
-   932                           tblptru	equ	0xFF8
-   933                           tblptrh	equ	0xFF7
-   934                           tblptrl	equ	0xFF6
-   935                           tablat	equ	0xFF5
-   936                           prodh	equ	0xFF4
-   937                           prodl	equ	0xFF3
-   938                           indf0	equ	0xFEF
-   939                           postinc0	equ	0xFEE
-   940                           postdec0	equ	0xFED
-   941                           preinc0	equ	0xFEC
-   942                           plusw0	equ	0xFEB
-   943                           fsr0h	equ	0xFEA
-   944                           fsr0l	equ	0xFE9
-   945                           wreg	equ	0xFE8
-   946                           indf1	equ	0xFE7
-   947                           postinc1	equ	0xFE6
-   948                           postdec1	equ	0xFE5
-   949                           preinc1	equ	0xFE4
-   950                           plusw1	equ	0xFE3
-   951                           fsr1h	equ	0xFE2
-   952                           fsr1l	equ	0xFE1
-   953                           bsr	equ	0xFE0
-   954                           indf2	equ	0xFDF
-   955                           postinc2	equ	0xFDE
-   956                           postdec2	equ	0xFDD
-   957                           preinc2	equ	0xFDC
-   958                           plusw2	equ	0xFDB
-   959                           fsr2h	equ	0xFDA
-   960                           fsr2l	equ	0xFD9
-   961                           status	equ	0xFD8
+   920                           ;Config register CONFIG3H @ 0x300005
+   921                           ;	ECAN Mux bit
+   922                           ;	CANMX = PORTB, ECAN TX and RX pins are located on RB2 and RB3, respectively
+   923                           ;	MSSP address masking
+   924                           ;	MSSPMSK = MSK7, 7 Bit address masking mode
+   925                           ;	Master Clear Enable
+   926                           ;	MCLRE = ON, MCLR Enabled, RE3 Disabled
+   927  300005                     	org	3145733
+   928  300005  89                 	db	137
+   929                           
+   930                           ;Config register CONFIG4L @ 0x300006
+   931                           ;	Stack Overflow Reset
+   932                           ;	STVREN = ON, Enabled
+   933                           ;	Boot Block Size
+   934                           ;	BBSIZ = BB2K, 2K word Boot Block size
+   935  300006                     	org	3145734
+   936  300006  91                 	db	145
+   937                           
+   938                           ; Padding undefined space
+   939  300007                     	org	3145735
+   940  300007  FF                 	db	255
+   941                           
+   942                           ;Config register CONFIG5L @ 0x300008
+   943                           ;	Code Protect 00800-01FFF
+   944                           ;	CP0 = OFF, Disabled
+   945                           ;	Code Protect 02000-03FFF
+   946                           ;	CP1 = OFF, Disabled
+   947                           ;	Code Protect 04000-05FFF
+   948                           ;	CP2 = OFF, Disabled
+   949                           ;	Code Protect 06000-07FFF
+   950                           ;	CP3 = OFF, Disabled
+   951  300008                     	org	3145736
+   952  300008  0F                 	db	15
+   953                           
+   954                           ;Config register CONFIG5H @ 0x300009
+   955                           ;	Code Protect Boot
+   956                           ;	CPB = OFF, Disabled
+   957                           ;	Data EE Read Protect
+   958                           ;	CPD = OFF, Disabled
+   959  300009                     	org	3145737
+   960  300009  C0                 	db	192
+   961                           
+   962                           ;Config register CONFIG6L @ 0x30000A
+   963                           ;	Table Write Protect 00800-01FFF
+   964                           ;	WRT0 = OFF, Disabled
+   965                           ;	Table Write Protect 02000-03FFF
+   966                           ;	WRT1 = OFF, Disabled
+   967                           ;	Table Write Protect 04000-05FFF
+   968                           ;	WRT2 = OFF, Disabled
+   969                           ;	Table Write Protect 06000-07FFF
+   970                           ;	WRT3 = OFF, Disabled
+   971  30000A                     	org	3145738
+   972  30000A  0F                 	db	15
+   973                           
+   974                           ;Config register CONFIG6H @ 0x30000B
+   975                           ;	Config. Write Protect
+   976                           ;	WRTC = OFF, Disabled
+   977                           ;	Table Write Protect Boot
+   978                           ;	WRTB = OFF, Disabled
+   979                           ;	Data EE Write Protect
+   980                           ;	WRTD = OFF, Disabled
+   981  30000B                     	org	3145739
+   982  30000B  E0                 	db	224
+   983                           
+   984                           ;Config register CONFIG7L @ 0x30000C
+   985                           ;	Table Read Protect 00800-01FFF
+   986                           ;	EBTR0 = OFF, Disabled
+   987                           ;	Table Read Protect 02000-03FFF
+   988                           ;	EBTR1 = OFF, Disabled
+   989                           ;	Table Read Protect 04000-05FFF
+   990                           ;	EBTR2 = OFF, Disabled
+   991                           ;	Table Read Protect 06000-07FFF
+   992                           ;	EBTR3 = OFF, Disabled
+   993  30000C                     	org	3145740
+   994  30000C  0F                 	db	15
+   995                           
+   996                           ;Config register CONFIG7H @ 0x30000D
+   997                           ;	Table Read Protect Boot
+   998                           ;	EBTRB = OFF, Disabled
+   999  30000D                     	org	3145741
+  1000  30000D  40                 	db	64
+  1001                           tosu	equ	0xFFF
+  1002                           tosh	equ	0xFFE
+  1003                           tosl	equ	0xFFD
+  1004                           stkptr	equ	0xFFC
+  1005                           pclatu	equ	0xFFB
+  1006                           pclath	equ	0xFFA
+  1007                           pcl	equ	0xFF9
+  1008                           tblptru	equ	0xFF8
+  1009                           tblptrh	equ	0xFF7
+  1010                           tblptrl	equ	0xFF6
+  1011                           tablat	equ	0xFF5
+  1012                           prodh	equ	0xFF4
+  1013                           prodl	equ	0xFF3
+  1014                           indf0	equ	0xFEF
+  1015                           postinc0	equ	0xFEE
+  1016                           postdec0	equ	0xFED
+  1017                           preinc0	equ	0xFEC
+  1018                           plusw0	equ	0xFEB
+  1019                           fsr0h	equ	0xFEA
+  1020                           fsr0l	equ	0xFE9
+  1021                           wreg	equ	0xFE8
+  1022                           indf1	equ	0xFE7
+  1023                           postinc1	equ	0xFE6
+  1024                           postdec1	equ	0xFE5
+  1025                           preinc1	equ	0xFE4
+  1026                           plusw1	equ	0xFE3
+  1027                           fsr1h	equ	0xFE2
+  1028                           fsr1l	equ	0xFE1
+  1029                           bsr	equ	0xFE0
+  1030                           indf2	equ	0xFDF
+  1031                           postinc2	equ	0xFDE
+  1032                           postdec2	equ	0xFDD
+  1033                           preinc2	equ	0xFDC
+  1034                           plusw2	equ	0xFDB
+  1035                           fsr2h	equ	0xFDA
+  1036                           fsr2l	equ	0xFD9
+  1037                           status	equ	0xFD8
 
 Data Sizes:
     Strings     0
     Constant    0
     Data        0
-    BSS         20
+    BSS         24
     Persistent  0
     Stack       0
 
 Auto Spaces:
     Space          Size  Autos    Used
-    COMRAM           94      2      22
+    COMRAM           94      2      26
     BANK0           160      0       0
     BANK1           256      0       0
     BANK2           256      0       0
@@ -1213,7 +1287,7 @@ BANK1              100      0       0       8        0.0%
 BITBANK0            A0      0       0       4        0.0%
 BANK0               A0      0       0       5        0.0%
 BITCOMRAM           5E      0       0       0        0.0%
-COMRAM              5E      2      16       1       23.4%
+COMRAM              5E      2      1A       1       27.7%
 BITBANK14           41      0       0      33        0.0%
 BANK14              41      0       0      34        0.0%
 BITSFR_2             0      0       0     200        0.0%
@@ -1224,69 +1298,76 @@ BITSFR               0      0       0     200        0.0%
 SFR                  0      0       0     200        0.0%
 STACK                0      0       0       2        0.0%
 NULL                 0      0       0       0        0.0%
-ABS                  0      0      16       6        0.0%
-DATA                 0      0      16       3        0.0%
+ABS                  0      0      1A       6        0.0%
+DATA                 0      0      1A       3        0.0%
 CODE                 0      0       0       0        0.0%
 
 
-Microchip Technology PIC18 Macro Assembler V2.30 build 20200825195618 
-Symbol Table                                                                                   Fri Jun 30 11:10:48 2023
+Microchip Technology PIC18 Macro Assembler V2.32 build 20210201212658 
+Symbol Table                                                                                   Sun Jul 02 15:55:35 2023
 
-                     u10 0218                       u11 0214                       u20 028C  
-                     u21 0288                       u40 016C                       u41 0168  
-                     u50 018A                       u51 0186                       u35 0148  
-                     u60 01AE                       u61 01AA                       u70 01C2  
-                     u71 01BE                       u80 01DA                       u81 01D6  
-                     u90 01EE                       u91 01EA                      l116 0194  
-                    l109 028C                      l810 01F8                      l812 01FC  
-                    l820 00FA                      l814 0204                      l830 016C  
-                    l822 011C                      l816 0218                      l840 01C2  
-                    l832 018A                      l824 0120                      l818 0276  
-                    l842 01C4                      l834 018C                      l826 0140  
-                    l844 01DA                      l836 0198                      l828 015C  
-                    l846 01EE                      l838 01AE                      wreg 000FE8  
-                   _main 00FA                     btemp 0017                     start 00F6  
-           ___param_bank 000000                    ?_main 0015                    i2l134 00F2  
-                  i2l850 0018                    i2l852 0026                    i2l860 005C  
-                  i2l870 0094                    i2l862 006A                    i2l854 0050  
-                  i2l880 00CE                    i2l872 009C                    i2l864 0078  
-                  i2l856 0056                    i2l848 000A                    i2l890 00F0  
-                  i2l874 00AE                    i2l882 00D0                    i2l866 007C  
-                  i2l858 005A                    i2l884 00E2                    i2l876 00B4  
-                  i2l868 0092                    i2l886 00E8                    i2l878 00C6  
-                  i2l888 00EC                    _TMR0H 000FD7                    _TMR0L 000FD6  
-                  _myISR 0008                    ttemp5 0018                    ttemp6 001B  
-                  ttemp7 001F                    status 000FD8                    wtemp8 0018  
-        __initialization 028E             __end_of_main 01F8                   ??_main 0015  
-          __activetblptr 000000                   ?_myISR 0015                   _RXB0D0 000F66  
+                     u10 0280                       u11 027C                       u20 02F4  
+                     u21 02F0                       u40 01C4                       u41 01C0  
+                     u50 01E2                       u51 01DE                       u35 01A0  
+                     u60 0206                       u61 0202                       u70 021A  
+                     u71 0216                       u80 023A                       u81 0236  
+                     u90 024E                       u91 024A                      l120 01EC  
+                    l113 02F4                      l820 0264                      l822 026C  
+                    l830 0174                      l824 0280                      l840 01E2  
+                    l832 0178                      l826 02DE                      l818 0260  
+                    l850 021C                      l842 01E4                      l834 0198  
+                    l852 0224                      l844 01F0                      l836 01B4  
+                    l828 0152                      l854 023A                      l846 0206  
+                    l838 01C4                      l856 024E                      l848 021A  
+                    l858 0250                      wreg 000FE8                     _main 0152  
+                   btemp 001B                     start 014E             ___param_bank 000000  
+                  ?_main 0019                    i2l142 014A                    i2l900 00FA  
+                  i2l910 012C                    i2l902 0100                    i2l912 013E  
+                  i2l904 0112                    i2l914 0140                    i2l906 0114  
+                  i2l916 0148                    i2l908 0126                    i2l860 000A  
+                  i2l870 005A                    i2l862 0018                    i2l880 0092  
+                  i2l864 0026                    i2l872 005C                    i2l890 00C6  
+                  i2l882 0094                    i2l874 006A                    i2l866 0050  
+                  i2l892 00CE                    i2l884 009C                    i2l876 0078  
+                  i2l868 0056                    i2l886 00AE                    i2l894 00D0  
+                  i2l878 007C                    i2l896 00E2                    i2l888 00B4  
+                  i2l898 00E8                    _TMR0H 000FD7                    _TMR0L 000FD6  
+                  _myISR 0008                    ttemp5 001C                    ttemp6 001F  
+                  ttemp7 0023                    status 000FD8                    wtemp8 001C  
+        __initialization 02F6             __end_of_main 0260                   ??_main 0019  
+          __activetblptr 000000                   ?_myISR 0019                   _RXB0D0 000F66  
                  _RXB0D1 000F67                   _RXB0D2 000F68                   _RXB0D3 000F69  
                  _RXB0D4 000F6A                   _RXB0D5 000F6B                   _RXB0D6 000F6C  
-                 _RXB0D7 000F6D         __end_of_can_init 028E                   clear_0 0294  
-             __accesstop 0060  __end_of__initialization 029A            ___rparam_used 000001  
-         __pcstackCOMRAM 0015            __end_of_myISR 00F6                  ??_myISR 0015  
-             _can_rxbuff 0001                  _ECANCON 000F72                  _CANSTAT 000F6E  
-                _BRGCON1 000E43                  _BRGCON2 000E44                  _BRGCON3 000E45  
-              ?_can_init 0015                  i2u10_40 0018                  i2u10_41 0014  
-                i2u11_40 0026                  i2u11_41 0022                  i2u12_40 006A  
-                i2u12_41 0066                  i2u13_40 0078                  i2u13_41 0074  
+                 _RXB0D7 000F6D         __end_of_can_init 02F6                   clear_0 02FC  
+                 isa$std 000001               __accesstop 0060  __end_of__initialization 0302  
+          ___rparam_used 000001           __pcstackCOMRAM 0019            __end_of_myISR 014E  
+                ??_myISR 0019               _can_rxbuff 0001               _brakeTimer 000E  
+                _ECANCON 000F72                  _CANSTAT 000F6E                  _BRGCON1 000E43  
+                _BRGCON2 000E44                  _BRGCON3 000E45                ?_can_init 0019  
+                i2u10_40 0018                  i2u10_41 0014                  i2u11_40 0026  
+                i2u11_41 0022                  i2u20_40 0126                  i2u12_40 006A  
+                i2u20_41 0122                  i2u12_41 0066                  i2u21_40 013E  
+                i2u13_40 0078                  i2u21_41 013A                  i2u13_41 0074  
                 i2u14_40 0092                  i2u14_41 008E                  i2u15_40 00AE  
                 i2u15_41 00AA                  i2u16_40 00C6                  i2u16_41 00C2  
-                i2u17_40 00E2                  i2u17_41 00DE                  _RXB0DLC 000F65  
-           _ledHighTimer 0010                  __Hparam 0000                  __Lparam 0000  
-                __pcinit 028E                  __ramtop 0F00                  __ptext0 00FA  
-                __ptext1 01F8                _T0CONbits 000FD5               ??_can_init 0015  
-   end_of_initialization 029A                  postinc0 000FEE                _TRISBbits 000F93  
-              _TRISCbits 000F94           _canMessageFlag 0014              _ECANCONbits 000F72  
-    start_initialization 028E              _CANSTATbits 000F6E              __pbssCOMRAM 0001  
-      __size_of_can_init 0096                __pintcode 0008           __size_of_myISR 00EE  
-            _ledLowTimer 000E                 _LATBbits 000F8A                 _PIE5bits 000F76  
-               _PIR5bits 000F77                 _RXB0SIDH 000F61                 _RXB0SIDL 000F62  
-               _RXF0EIDH 000EE2                 _RXF0EIDL 000EE3                 _RXF1EIDH 000EE6  
-               _RXF1EIDL 000EE7                 _RXF0SIDH 000EE0                 _RXF0SIDL 000EE1  
-               _RXF1SIDH 000EE4                 _RXF1SIDL 000EE5                 _RXM0EIDH 000EFA  
-               _RXM0EIDL 000EFB                 _RXM1EIDH 000EFE                 _RXM1EIDL 000EFF  
-               _RXM0SIDH 000EF8                 _RXM0SIDL 000EF9                 _RXM1SIDH 000EFC  
-               _RXM1SIDL 000EFD               _CANCONbits 000F6F                 __Hrparam 0000  
-               __Lrparam 0000                 _can_init 01F8                 _ledtimer 0012  
-          __size_of_main 00FE                 int$flags 0017              _RXB0CONbits 000F60  
+                i2u17_40 00E2                  i2u17_41 00DE                  i2u18_40 00FA  
+                i2u18_41 00F6                  _RXB0DLC 000F65                  i2u19_40 0112  
+                i2u19_41 010E             _ledHighTimer 0014                  __Hparam 0000  
+                __Lparam 0000                  __pcinit 02F6                  __ramtop 0F00  
+                __ptext0 0152                  __ptext1 0260                _T0CONbits 000FD5  
+             ??_can_init 0019     end_of_initialization 0302                  postinc0 000FEE  
+              _TRISBbits 000F93                _TRISCbits 000F94           _canMessageFlag 0018  
+            _ECANCONbits 000F72      start_initialization 02F6              _CANSTATbits 000F6E  
+            __pbssCOMRAM 0001        __size_of_can_init 0096                __pintcode 0008  
+         __size_of_myISR 0146              _ledLowTimer 0012                 _LATBbits 000F8A  
+               _PIE5bits 000F76                 _PIR5bits 000F77                 _RXB0SIDH 000F61  
+               _RXB0SIDL 000F62                 _RXF0EIDH 000EE2                 _RXF0EIDL 000EE3  
+               _RXF1EIDH 000EE6                 _RXF1EIDL 000EE7                 _RXF0SIDH 000EE0  
+               _RXF0SIDL 000EE1                 _RXF1SIDH 000EE4                 _RXF1SIDL 000EE5  
+               _RXM0EIDH 000EFA                 _RXM0EIDL 000EFB                 _RXM1EIDH 000EFE  
+               _RXM1EIDL 000EFF                 _RXM0SIDH 000EF8                 _RXM0SIDL 000EF9  
+               _RXM1SIDH 000EFC                 _RXM1SIDL 000EFD               _CANCONbits 000F6F  
+               __Hrparam 0000                 __Lrparam 0000                 _can_init 0260  
+               _ignTimer 0010                 _ledtimer 0016            __size_of_main 010E  
+               isa$xinst 000000                 int$flags 001B              _RXB0CONbits 000F60  
              _INTCONbits 000FF2                 intlevel2 0000  
